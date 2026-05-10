@@ -901,6 +901,26 @@
     /* VAIOH sub-text with no bottom margin */
     .section-sub-flush { margin-bottom: 0; }
 
+    /* ─── LANGUAGE SWITCHER ─── */
+    .lang-switcher {
+      display: flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      background: none; border: none;
+      border-right: 1px solid var(--border);
+      padding: 6px 10px;
+      font-size: 11px; font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.06em; color: var(--muted);
+      cursor: pointer; line-height: 1;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn:last-child { border-right: none; }
+    .lang-btn.active { background: var(--green); color: var(--ivory); }
+    .lang-btn:hover:not(.active) { background: var(--beige); color: var(--charcoal); }
+
     @media (max-width: 768px) {
       nav { padding: 18px 24px; }
       nav.scrolled { padding: 14px 24px; }
@@ -950,14 +970,19 @@
 <nav id="nav">
   <a href="#hero" class="nav-logo">5CODE <sub>by Andrew Kim</sub></a>
   <ul class="nav-links">
-    <li><a href="#why">5CODE란</a></li>
+    <li><a href="#why" data-i18n="nav.why">5CODE란</a></li>
     <li><a href="#about">Andrew Kim</a></li>
-    <li><a href="#system">체질 시스템</a></li>
-    <li><a href="#programs">프로그램</a></li>
-    <li><a href="#media">미디어</a></li>
+    <li><a href="#system" data-i18n="nav.system">체질 시스템</a></li>
+    <li><a href="#programs" data-i18n="nav.programs">프로그램</a></li>
+    <li><a href="#media" data-i18n="nav.media">미디어</a></li>
   </ul>
   <div class="nav-actions">
-    <button type="button" class="nav-cta" onclick="scrollTo('contact')">문의하기</button>
+    <div class="lang-switcher" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="ko" onclick="setLang('ko')">KO</button>
+      <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" data-lang="ja" onclick="setLang('ja')">JA</button>
+    </div>
+    <button type="button" class="nav-cta" id="navCta" onclick="scrollTo('contact')" data-i18n="nav.cta">문의하기</button>
     <button type="button" class="hamburger" id="hamburger" aria-label="메뉴 열기">
       <span></span><span></span><span></span>
     </button>
@@ -966,13 +991,13 @@
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#why" class="mobile-link">5CODE란</a>
+  <a href="#why" class="mobile-link" data-i18n="nav.why">5CODE란</a>
   <a href="#about" class="mobile-link">Andrew Kim</a>
-  <a href="#system" class="mobile-link">체질 시스템</a>
-  <a href="#vaioh" class="mobile-link">VAIOH 방법론</a>
-  <a href="#programs" class="mobile-link">프로그램</a>
-  <a href="#media" class="mobile-link">미디어</a>
-  <a href="#contact" class="mobile-link mobile-cta">문의하기</a>
+  <a href="#system" class="mobile-link" data-i18n="nav.system">체질 시스템</a>
+  <a href="#vaioh" class="mobile-link" data-i18n="nav.vaioh">VAIOH 방법론</a>
+  <a href="#programs" class="mobile-link" data-i18n="nav.programs">프로그램</a>
+  <a href="#media" class="mobile-link" data-i18n="nav.media">미디어</a>
+  <a href="#contact" class="mobile-link mobile-cta" data-i18n="nav.cta">문의하기</a>
 </div>
 
 <!-- ── S1: HERO ── -->
@@ -989,18 +1014,18 @@
       <div class="hero-eyebrow-line"></div>
       <span class="hero-eyebrow-text">Wellness · Self-care · 5CODE</span>
     </div>
-    <h1 class="hero-headline reveal reveal-delay-1">
+    <h1 class="hero-headline reveal reveal-delay-1" data-i18n="hero.headline">
       내 몸에 맞는<br />건강이<br /><em>진짜 건강입니다.</em>
     </h1>
     <p class="hero-brand reveal reveal-delay-2">5CODE Wellness Platform</p>
-    <p class="hero-desc reveal reveal-delay-3">
+    <p class="hero-desc reveal reveal-delay-3" data-i18n="hero.desc">
       체질·체력·생활습관을 기반으로 설계하는<br />
       새로운 웰니스 자기관리 플랫폼, 5CODE.<br />
       개인에게 맞는 운동, 식사, 라이프스타일을 제안합니다.
     </p>
     <div class="hero-actions reveal reveal-delay-4">
-      <a href="#system" class="btn btn-primary">5CODE 알아보기</a>
-      <a href="#contact" class="btn btn-outline-light">강연·제휴 문의</a>
+      <a href="#system" class="btn btn-primary" data-i18n="hero.btn1">5CODE 알아보기</a>
+      <a href="#contact" class="btn btn-outline-light" data-i18n="hero.btn2">강연·제휴 문의</a>
     </div>
   </div>
 
@@ -1013,31 +1038,31 @@
 <!-- ── S2: WHY 5CODE ── -->
 <section id="why">
   <div class="container">
-    <div class="reveal"><span class="section-label">왜 5CODE인가</span></div>
-    <h2 class="section-title reveal">왜 사람마다 다른<br />건강관리가 필요한가</h2>
-    <p class="section-sub reveal">
+    <div class="reveal"><span class="section-label" data-i18n="why.label">왜 5CODE인가</span></div>
+    <h2 class="section-title reveal" data-i18n="why.title">왜 사람마다 다른<br />건강관리가 필요한가</h2>
+    <p class="section-sub reveal" data-i18n="why.sub">
       같은 방법이 모두에게 맞을 수 없습니다.<br />
       체질과 생활습관이 다르면, 관리법도 달라져야 합니다.
     </p>
     <div class="why-grid">
       <div class="why-card reveal">
         <div class="why-number">01</div>
-        <h3 class="why-title">체질이 다르면<br />관리법도 달라집니다</h3>
-        <p class="why-body">
+        <h3 class="why-title" data-i18n="why.c1.title">체질이 다르면<br />관리법도 달라집니다</h3>
+        <p class="why-body" data-i18n="why.c1.body">
           동일한 음식과 운동이 누군가에게는 이상적이지만, 다른 누군가에게는 맞지 않을 수 있습니다. 5CODE는 체질별 생활습관 가이드를 통해 나에게 맞는 방식을 찾도록 돕습니다.
         </p>
       </div>
       <div class="why-card reveal reveal-delay-1">
         <div class="why-number">02</div>
-        <h3 class="why-title">운동도 나에게<br />맞아야 합니다</h3>
-        <p class="why-body">
+        <h3 class="why-title" data-i18n="why.c2.title">운동도 나에게<br />맞아야 합니다</h3>
+        <p class="why-body" data-i18n="why.c2.body">
           체질과 체력 수준을 고려하지 않은 운동은 오히려 부담이 될 수 있습니다. 개인에게 맞는 운동 유형과 강도를 파악하는 것이 지속가능한 웰니스의 시작입니다.
         </p>
       </div>
       <div class="why-card reveal reveal-delay-2">
         <div class="why-number">03</div>
-        <h3 class="why-title">생활습관이 건강의<br />방향을 바꿉니다</h3>
-        <p class="why-body">
+        <h3 class="why-title" data-i18n="why.c3.title">생활습관이 건강의<br />방향을 바꿉니다</h3>
+        <p class="why-body" data-i18n="why.c3.body">
           수면, 식사, 스트레스, 활동량 등 일상의 습관들이 쌓여 건강의 방향을 결정합니다. 5CODE는 생활습관 개선을 통한 자기관리 가이드를 제공합니다.
         </p>
       </div>
@@ -1055,36 +1080,36 @@
       </div>
       <div class="about-content reveal reveal-delay-1">
         <span class="section-label">About</span>
-        <h2 class="about-name">김정명</h2>
+        <h2 class="about-name" data-i18n="about.name">김정명</h2>
         <p class="about-name-en">Andrew Kim</p>
-        <p class="about-bio">
+        <p class="about-bio" data-i18n="about.bio">
           30년간 일본·한국 헬스케어 현장에서 체질 기반 자기관리 체계를 연구하고 사업화해온 웰니스 컨설턴트입니다. 전통 동양의학의 지혜를 현대적 웰니스 언어로 재해석하여 5CODE와 VAIOH 방법론을 개발했습니다.
           <br /><br />
           의료 행위가 아닌 생활습관·체질 기반의 자기관리 콘텐츠를 개발하고 교육하며, NPO Smart Healthcare를 통해 한국과 일본, 그리고 글로벌 웰니스 네트워크를 연결하고 있습니다.
         </p>
         <div class="about-tags">
-          <span class="about-tag">체질 기반 웰니스 연구</span>
-          <span class="about-tag">라이프스타일 교육</span>
+          <span class="about-tag" data-i18n="about.tag1">체질 기반 웰니스 연구</span>
+          <span class="about-tag" data-i18n="about.tag2">라이프스타일 교육</span>
           <span class="about-tag">NPO Smart Healthcare</span>
-          <span class="about-tag">한·일 헬스케어 컨설팅</span>
-          <span class="about-tag">5CODE / VAIOH 개발자</span>
+          <span class="about-tag" data-i18n="about.tag3">한·일 헬스케어 컨설팅</span>
+          <span class="about-tag" data-i18n="about.tag4">5CODE / VAIOH 개발자</span>
         </div>
         <div class="about-career">
           <div class="about-career-item">
-            <span class="about-career-year">현재</span>
-            <span class="about-career-desc">NPO Smart Healthcare 회장 · 5CODE/VAIOH 체계 총괄</span>
+            <span class="about-career-year" data-i18n="about.year1">현재</span>
+            <span class="about-career-desc" data-i18n="about.desc1">NPO Smart Healthcare 회장 · 5CODE/VAIOH 체계 총괄</span>
           </div>
           <div class="about-career-item">
             <span class="about-career-year">2020</span>
-            <span class="about-career-desc">PFT5 · PFA5 디지털 웰니스 플랫폼 공개</span>
+            <span class="about-career-desc" data-i18n="about.desc2">PFT5 · PFA5 디지털 웰니스 플랫폼 공개</span>
           </div>
           <div class="about-career-item">
             <span class="about-career-year">2010s</span>
-            <span class="about-career-desc">한·일 헬스케어 현장 30년 경력 체질 연구 · 콘텐츠 개발</span>
+            <span class="about-career-desc" data-i18n="about.desc3">한·일 헬스케어 현장 30년 경력 체질 연구 · 콘텐츠 개발</span>
           </div>
           <div class="about-career-item">
-            <span class="about-career-year">기반</span>
-            <span class="about-career-desc">동양의학 · 현대 생활의학(PLM) · WHO 자기관리 가이드라인</span>
+            <span class="about-career-year" data-i18n="about.year4">기반</span>
+            <span class="about-career-desc" data-i18n="about.desc4">동양의학 · 현대 생활의학(PLM) · WHO 자기관리 가이드라인</span>
           </div>
         </div>
       </div>
@@ -1096,8 +1121,8 @@
 <section id="system">
   <div class="container">
     <div class="reveal"><span class="section-label">5CODE System</span></div>
-    <h2 class="section-title reveal">다섯 가지 체질 유형</h2>
-    <p class="section-sub reveal">
+    <h2 class="section-title reveal" data-i18n="system.title">다섯 가지 체질 유형</h2>
+    <p class="section-sub reveal" data-i18n="system.sub">
       5CODE는 체질·체력·생활습관을 기반으로 개인 유형을 분류하는 웰니스 자기관리 참고 체계입니다. 각 유형별 운동·식사·라이프스타일 가이드를 통해 나에게 맞는 자기관리를 시작할 수 있습니다.
     </p>
     <div class="code-grid">
@@ -1105,41 +1130,41 @@
         <div class="code-letter">H</div>
         <div class="code-name">Harbor형</div>
         <div class="code-divider"></div>
-        <div class="code-type">균형·에너지 보존형</div>
-        <div class="code-desc">안정된 루틴과 충분한 회복을 통해 균형 있는 생활관리를 추구하는 체질 유형</div>
+        <div class="code-type" data-i18n="code.H.type">균형·에너지 보존형</div>
+        <div class="code-desc" data-i18n="code.H.desc">안정된 루틴과 충분한 회복을 통해 균형 있는 생활관리를 추구하는 체질 유형</div>
       </div>
       <div class="code-card reveal reveal-delay-1">
         <div class="code-letter">I</div>
         <div class="code-name">Innate형</div>
         <div class="code-divider"></div>
-        <div class="code-type">활동·근골격 중심형</div>
-        <div class="code-desc">활발한 신체활동과 근골격 관리를 중심으로 한 생활관리가 잘 맞는 체질 유형</div>
+        <div class="code-type" data-i18n="code.I.type">활동·근골격 중심형</div>
+        <div class="code-desc" data-i18n="code.I.desc">활발한 신체활동과 근골격 관리를 중심으로 한 생활관리가 잘 맞는 체질 유형</div>
       </div>
       <div class="code-card reveal reveal-delay-2">
         <div class="code-letter">Y</div>
         <div class="code-name">Yang형</div>
         <div class="code-divider"></div>
-        <div class="code-type">에너지·순환 활성형</div>
-        <div class="code-desc">에너지 순환과 활력 관리를 중심으로 생활습관 개선 효과가 두드러지는 체질 유형</div>
+        <div class="code-type" data-i18n="code.Y.type">에너지·순환 활성형</div>
+        <div class="code-desc" data-i18n="code.Y.desc">에너지 순환과 활력 관리를 중심으로 생활습관 개선 효과가 두드러지는 체질 유형</div>
       </div>
       <div class="code-card reveal reveal-delay-3">
         <div class="code-letter">A</div>
         <div class="code-name">Apex형</div>
         <div class="code-divider"></div>
-        <div class="code-type">심뇌·조화 관리형</div>
-        <div class="code-desc">균형 잡힌 생활 리듬과 심리적 안정이 웰니스 관리에 핵심이 되는 체질 유형</div>
+        <div class="code-type" data-i18n="code.A.type">심뇌·조화 관리형</div>
+        <div class="code-desc" data-i18n="code.A.desc">균형 잡힌 생활 리듬과 심리적 안정이 웰니스 관리에 핵심이 되는 체질 유형</div>
       </div>
       <div class="code-card reveal reveal-delay-4">
         <div class="code-letter">O</div>
         <div class="code-name">Origin형</div>
         <div class="code-divider"></div>
-        <div class="code-type">소화·기초 자연형</div>
-        <div class="code-desc">소화기 중심의 기초 건강 관리와 자연스러운 생활 리듬이 잘 맞는 체질 유형</div>
+        <div class="code-type" data-i18n="code.O.type">소화·기초 자연형</div>
+        <div class="code-desc" data-i18n="code.O.desc">소화기 중심의 기초 건강 관리와 자연스러운 생활 리듬이 잘 맞는 체질 유형</div>
       </div>
     </div>
     <div class="code-notice-wrap reveal">
       <div class="vaioh-notice code-notice">
-        <p>체질 분류는 자기관리 가이드를 위한 <strong>참고 도구</strong>입니다. 의학적 진단을 대체하지 않으며, 의료진 상담과 병행하여 활용하시기 바랍니다.</p>
+        <p data-i18n="system.notice">체질 분류는 자기관리 가이드를 위한 <strong>참고 도구</strong>입니다. 의학적 진단을 대체하지 않으며, 의료진 상담과 병행하여 활용하시기 바랍니다.</p>
       </div>
     </div>
   </div>
@@ -1151,10 +1176,10 @@
     <div class="vaioh-intro">
       <div>
         <div class="reveal"><span class="section-label">VAIOH Method</span></div>
-        <h2 class="section-title reveal">체형과 균형을<br />스스로 인식하는<br />자가 평가 방법론</h2>
+        <h2 class="section-title reveal" data-i18n="vaioh.title">체형과 균형을<br />스스로 인식하는<br />자가 평가 방법론</h2>
       </div>
       <div class="reveal reveal-delay-1">
-        <p class="section-sub section-sub-flush">
+        <p class="section-sub section-sub-flush" data-i18n="vaioh.sub">
           VAIOH는 등·체형·균형·자기 인식을 중심으로 나의 신체 상태를 스스로 파악하는 자가 인식 도구입니다. 실제 의료 진단이 아닌, 생활습관 관리의 방향을 잡기 위한 체질 분류 참고 체계입니다. 의료진 상담과 병행하여 활용하시기를 권장합니다.
         </p>
       </div>
@@ -1162,23 +1187,23 @@
     <div class="vaioh-pillars">
       <div class="vaioh-card reveal">
         <div class="vaioh-icon">🪴</div>
-        <h3 class="vaioh-card-title">등 · 척추 자가 인식</h3>
-        <p class="vaioh-card-body">등과 척추의 긴장, 피로, 자세 습관을 스스로 인식하는 첫 번째 단계. 일상 속 자세 패턴이 생활관리의 단서가 됩니다.</p>
+        <h3 class="vaioh-card-title" data-i18n="vaioh.c1.title">등 · 척추 자가 인식</h3>
+        <p class="vaioh-card-body" data-i18n="vaioh.c1.body">등과 척추의 긴장, 피로, 자세 습관을 스스로 인식하는 첫 번째 단계. 일상 속 자세 패턴이 생활관리의 단서가 됩니다.</p>
       </div>
       <div class="vaioh-card reveal reveal-delay-1">
         <div class="vaioh-icon">⚖️</div>
-        <h3 class="vaioh-card-title">체형 균형 자기 분류</h3>
-        <p class="vaioh-card-body">나의 체형적 특성과 신체 균형 상태를 자가 분류하는 단계. 개인 체질 분류 참고를 통해 맞춤 관리 방향을 설정합니다.</p>
+        <h3 class="vaioh-card-title" data-i18n="vaioh.c2.title">체형 균형 자기 분류</h3>
+        <p class="vaioh-card-body" data-i18n="vaioh.c2.body">나의 체형적 특성과 신체 균형 상태를 자가 분류하는 단계. 개인 체질 분류 참고를 통해 맞춤 관리 방향을 설정합니다.</p>
       </div>
       <div class="vaioh-card reveal reveal-delay-2">
         <div class="vaioh-icon">🌿</div>
-        <h3 class="vaioh-card-title">생활습관 자가 평가</h3>
-        <p class="vaioh-card-body">수면, 식사, 활동량, 스트레스 등 현재 생활습관을 객관적으로 점검하는 단계. 자기관리 가이드의 출발점입니다.</p>
+        <h3 class="vaioh-card-title" data-i18n="vaioh.c3.title">생활습관 자가 평가</h3>
+        <p class="vaioh-card-body" data-i18n="vaioh.c3.body">수면, 식사, 활동량, 스트레스 등 현재 생활습관을 객관적으로 점검하는 단계. 자기관리 가이드의 출발점입니다.</p>
       </div>
       <div class="vaioh-card reveal reveal-delay-3">
         <div class="vaioh-icon">🎯</div>
-        <h3 class="vaioh-card-title">개인 맞춤 관리 설계</h3>
-        <p class="vaioh-card-body">체질·체형·생활습관 평가를 바탕으로 개인에게 맞는 운동·식사·라이프스타일을 제안하는 단계. 의료진 상담과 병행을 권장합니다.</p>
+        <h3 class="vaioh-card-title" data-i18n="vaioh.c4.title">개인 맞춤 관리 설계</h3>
+        <p class="vaioh-card-body" data-i18n="vaioh.c4.body">체질·체형·생활습관 평가를 바탕으로 개인에게 맞는 운동·식사·라이프스타일을 제안하는 단계. 의료진 상담과 병행을 권장합니다.</p>
       </div>
     </div>
   </div>
@@ -1188,38 +1213,38 @@
 <section id="programs">
   <div class="container">
     <div class="reveal"><span class="section-label">Programs</span></div>
-    <h2 class="section-title reveal">내 체질에 맞는<br />웰니스 프로그램</h2>
-    <p class="section-sub reveal">
+    <h2 class="section-title reveal" data-i18n="programs.title">내 체질에 맞는<br />웰니스 프로그램</h2>
+    <p class="section-sub reveal" data-i18n="programs.sub">
       강연부터 기업 교육까지, 5CODE 웰니스 체계를 다양한 방식으로 경험할 수 있습니다.
     </p>
     <div class="programs-grid">
       <div class="program-card reveal">
         <div class="program-num">01</div>
         <span class="program-tag">Lecture</span>
-        <h3 class="program-title">5CODE 입문 강연</h3>
-        <p class="program-body">체질·체력·생활습관 기반 웰니스의 핵심을 소개하는 입문 강연. 왜 사람마다 다른 관리가 필요한지, 어디서부터 시작해야 하는지를 이야기합니다.</p>
-        <a href="#contact" class="program-link">강연 문의하기</a>
+        <h3 class="program-title" data-i18n="prog1.title">5CODE 입문 강연</h3>
+        <p class="program-body" data-i18n="prog1.body">체질·체력·생활습관 기반 웰니스의 핵심을 소개하는 입문 강연. 왜 사람마다 다른 관리가 필요한지, 어디서부터 시작해야 하는지를 이야기합니다.</p>
+        <a href="#contact" class="program-link" data-i18n="prog1.link">강연 문의하기</a>
       </div>
       <div class="program-card reveal reveal-delay-1">
         <div class="program-num">02</div>
         <span class="program-tag">Course</span>
-        <h3 class="program-title">4주 라이프 디자인 코스</h3>
-        <p class="program-body">나의 체질 유형을 파악하고, 4주 동안 생활습관 개선을 직접 설계하고 실천하는 자기관리 집중 코스. 개인에게 맞는 루틴 구축을 목표로 합니다.</p>
-        <a href="#contact" class="program-link">코스 문의하기</a>
+        <h3 class="program-title" data-i18n="prog2.title">4주 라이프 디자인 코스</h3>
+        <p class="program-body" data-i18n="prog2.body">나의 체질 유형을 파악하고, 4주 동안 생활습관 개선을 직접 설계하고 실천하는 자기관리 집중 코스. 개인에게 맞는 루틴 구축을 목표로 합니다.</p>
+        <a href="#contact" class="program-link" data-i18n="prog2.link">코스 문의하기</a>
       </div>
       <div class="program-card reveal reveal-delay-2">
         <div class="program-num">03</div>
         <span class="program-tag">Content</span>
-        <h3 class="program-title">체질별 운동·댄스 콘텐츠</h3>
-        <p class="program-body">5CODE 체질 유형별로 설계된 움직임 콘텐츠. 나에게 맞는 운동 강도와 유형을 찾고, 즐겁게 지속할 수 있는 신체 활동 가이드를 제공합니다.</p>
-        <a href="#contact" class="program-link">콘텐츠 문의하기</a>
+        <h3 class="program-title" data-i18n="prog3.title">체질별 운동·댄스 콘텐츠</h3>
+        <p class="program-body" data-i18n="prog3.body">5CODE 체질 유형별로 설계된 움직임 콘텐츠. 나에게 맞는 운동 강도와 유형을 찾고, 즐겁게 지속할 수 있는 신체 활동 가이드를 제공합니다.</p>
+        <a href="#contact" class="program-link" data-i18n="prog3.link">콘텐츠 문의하기</a>
       </div>
       <div class="program-card reveal reveal-delay-3">
         <div class="program-num">04</div>
         <span class="program-tag">B2B</span>
-        <h3 class="program-title">기업·단체 웰니스 교육</h3>
-        <p class="program-body">임직원 건강증진, 팀 웰니스 문화 구축을 위한 기업 맞춤 교육 프로그램. 생활습관 관리와 체질별 자기관리 가이드를 조직 단위로 적용합니다.</p>
-        <a href="#contact" class="program-link">기업 교육 문의</a>
+        <h3 class="program-title" data-i18n="prog4.title">기업·단체 웰니스 교육</h3>
+        <p class="program-body" data-i18n="prog4.body">임직원 건강증진, 팀 웰니스 문화 구축을 위한 기업 맞춤 교육 프로그램. 생활습관 관리와 체질별 자기관리 가이드를 조직 단위로 적용합니다.</p>
+        <a href="#contact" class="program-link" data-i18n="prog4.link">기업 교육 문의</a>
       </div>
     </div>
   </div>
@@ -1229,29 +1254,29 @@
 <section id="digital">
   <div class="container">
     <div class="reveal"><span class="section-label">Digital Wellness</span></div>
-    <h2 class="section-title reveal">디지털로 확장하는<br />웰니스 자기관리</h2>
-    <p class="section-sub reveal">
+    <h2 class="section-title reveal" data-i18n="digital.title">디지털로 확장하는<br />웰니스 자기관리</h2>
+    <p class="section-sub reveal" data-i18n="digital.sub">
       5CODE 체질 기반 웰니스 관리를 디지털 환경에서 일상적으로 실천할 수 있도록 설계된 플랫폼 비전입니다.
     </p>
     <div class="digital-grid">
       <div class="digital-card reveal">
         <div class="digital-badge">PFT<sub>5</sub></div>
         <h3 class="digital-title">Personal Fitness Track 5</h3>
-        <p class="digital-body">5CODE 체질 유형별 맞춤 체력 측정 및 생활관리 트랙. 개인의 체질과 체력 수준에 따른 운동·섭생·라이프스타일 데이터를 기반으로 최적화된 건강관리 보조 경로를 제시합니다.</p>
+        <p class="digital-body" data-i18n="digital.pft.body">5CODE 체질 유형별 맞춤 체력 측정 및 생활관리 트랙. 개인의 체질과 체력 수준에 따른 운동·섭생·라이프스타일 데이터를 기반으로 최적화된 건강관리 보조 경로를 제시합니다.</p>
         <div class="digital-features">
-          <span class="digital-feature">체질별 맞춤 체력 측정 가이드</span>
-          <span class="digital-feature">생활습관 데이터 기록 및 분석</span>
-          <span class="digital-feature">운동·식사·라이프스타일 제안</span>
+          <span class="digital-feature" data-i18n="digital.pft.f1">체질별 맞춤 체력 측정 가이드</span>
+          <span class="digital-feature" data-i18n="digital.pft.f2">생활습관 데이터 기록 및 분석</span>
+          <span class="digital-feature" data-i18n="digital.pft.f3">운동·식사·라이프스타일 제안</span>
         </div>
       </div>
       <div class="digital-card reveal reveal-delay-1">
         <div class="digital-badge">PFA<sub>5</sub></div>
         <h3 class="digital-title">Personal Fitness Application 5</h3>
-        <p class="digital-body">5CODE 모바일 웰니스 관리 앱. WHO 자기관리(Self-care) 가이드라인에 기반한 개인 맞춤형 생활습관 플랫폼으로 나만의 웰니스 여정을 일상에서 지속적으로 지원합니다.</p>
+        <p class="digital-body" data-i18n="digital.pfa.body">5CODE 모바일 웰니스 관리 앱. WHO 자기관리(Self-care) 가이드라인에 기반한 개인 맞춤형 생활습관 플랫폼으로 나만의 웰니스 여정을 일상에서 지속적으로 지원합니다.</p>
         <div class="digital-features">
-          <span class="digital-feature">개인 체질 유형별 대시보드</span>
-          <span class="digital-feature">일상 생활습관 모니터링 및 가이드</span>
-          <span class="digital-feature">웰니스 목표 설정 및 자기관리 보조</span>
+          <span class="digital-feature" data-i18n="digital.pfa.f1">개인 체질 유형별 대시보드</span>
+          <span class="digital-feature" data-i18n="digital.pfa.f2">일상 생활습관 모니터링 및 가이드</span>
+          <span class="digital-feature" data-i18n="digital.pfa.f3">웰니스 목표 설정 및 자기관리 보조</span>
         </div>
       </div>
     </div>
@@ -1261,30 +1286,30 @@
 <!-- ── S8: RESEARCH & SAFETY ── -->
 <section id="research">
   <div class="container">
-    <div class="reveal"><span class="section-label">신뢰 · 안전</span></div>
-    <h2 class="section-title reveal">책임 있는<br />웰니스 자기관리</h2>
-    <p class="section-sub reveal">
+    <div class="reveal"><span class="section-label" data-i18n="research.label">신뢰 · 안전</span></div>
+    <h2 class="section-title reveal" data-i18n="research.title">책임 있는<br />웰니스 자기관리</h2>
+    <p class="section-sub reveal" data-i18n="research.sub">
       5CODE는 WHO 자기관리 가이드라인 및 생활습관 관리 원칙과 맥락을 함께 합니다. 모든 콘텐츠는 건강관리 보조를 위한 자기관리 가이드이며, 의료 행위를 대체하지 않습니다.
     </p>
     <div class="research-grid">
       <div class="research-card reveal">
         <div class="research-icon">🌿</div>
-        <h3 class="research-title">WHO 자기관리 원칙 기반</h3>
-        <p class="research-body">세계보건기구(WHO)의 자기관리(Self-care) 가이드라인과 신체활동 권장 방향에 부합하는 생활습관 개선 콘텐츠를 제공합니다.</p>
+        <h3 class="research-title" data-i18n="research.c1.title">WHO 자기관리 원칙 기반</h3>
+        <p class="research-body" data-i18n="research.c1.body">세계보건기구(WHO)의 자기관리(Self-care) 가이드라인과 신체활동 권장 방향에 부합하는 생활습관 개선 콘텐츠를 제공합니다.</p>
       </div>
       <div class="research-card reveal reveal-delay-1">
         <div class="research-icon">📋</div>
-        <h3 class="research-title">생활습관 개선 중심</h3>
-        <p class="research-body">운동, 수면, 식사, 스트레스 관리 등 일상 생활습관 개선을 핵심으로 합니다. 체질 분류는 자기관리 방향 참고를 위한 도구로 활용됩니다.</p>
+        <h3 class="research-title" data-i18n="research.c2.title">생활습관 개선 중심</h3>
+        <p class="research-body" data-i18n="research.c2.body">운동, 수면, 식사, 스트레스 관리 등 일상 생활습관 개선을 핵심으로 합니다. 체질 분류는 자기관리 방향 참고를 위한 도구로 활용됩니다.</p>
       </div>
       <div class="research-card reveal reveal-delay-2">
         <div class="research-icon">🤝</div>
-        <h3 class="research-title">의료진 상담과 병행</h3>
-        <p class="research-body">건강 상태에 따라 의료진 상담을 먼저 받으시기 바랍니다. 5CODE는 의료 진단·치료의 보완이 아닌, 일상 자기관리 가이드를 목적으로 합니다.</p>
+        <h3 class="research-title" data-i18n="research.c3.title">의료진 상담과 병행</h3>
+        <p class="research-body" data-i18n="research.c3.body">건강 상태에 따라 의료진 상담을 먼저 받으시기 바랍니다. 5CODE는 의료 진단·치료의 보완이 아닌, 일상 자기관리 가이드를 목적으로 합니다.</p>
       </div>
     </div>
     <div class="disclaimer-box reveal">
-      <p><strong>안전 고지 —</strong> 본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요. 모든 신체 활동은 개인의 건강 상태에 맞게 조절하시기 바랍니다.</p>
+      <p data-i18n="research.disclaimer"><strong>안전 고지 —</strong> 본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요. 모든 신체 활동은 개인의 건강 상태에 맞게 조절하시기 바랍니다.</p>
     </div>
   </div>
 </section>
@@ -1293,8 +1318,8 @@
 <section id="media">
   <div class="container">
     <div class="reveal"><span class="section-label">Media · Lecture</span></div>
-    <h2 class="section-title reveal">콘텐츠 · 강연 · 미디어</h2>
-    <p class="section-sub reveal">
+    <h2 class="section-title reveal" data-i18n="media.title">콘텐츠 · 강연 · 미디어</h2>
+    <p class="section-sub reveal" data-i18n="media.sub">
       유튜브, 강연, 세미나, 교육 콘텐츠로 확장되는 5CODE 웰니스 브랜드 미디어.
     </p>
     <div class="media-grid">
@@ -1338,50 +1363,50 @@
     <div class="contact-grid">
       <div class="contact-info reveal">
         <span class="section-label">Contact</span>
-        <h2 class="contact-tagline">함께 만드는<br /><em>웰니스의 미래</em></h2>
-        <p class="contact-desc">
+        <h2 class="contact-tagline" data-i18n="contact.tagline">함께 만드는<br /><em>웰니스의 미래</em></h2>
+        <p class="contact-desc" data-i18n="contact.desc">
           강연 문의, 제휴 협력, 프로그램 참가, 기업 교육 등 다양한 형태의 협업을 환영합니다. 아래 양식을 통해 문의해 주시면 빠르게 답변드리겠습니다.
         </p>
         <div class="contact-types">
-          <div class="contact-type"><div class="contact-type-dot"></div>강연 문의</div>
-          <div class="contact-type"><div class="contact-type-dot"></div>제휴 문의</div>
-          <div class="contact-type"><div class="contact-type-dot"></div>프로그램 문의</div>
-          <div class="contact-type"><div class="contact-type-dot"></div>기업 교육 문의</div>
+          <div class="contact-type"><div class="contact-type-dot"></div><span data-i18n="contact.t1">강연 문의</span></div>
+          <div class="contact-type"><div class="contact-type-dot"></div><span data-i18n="contact.t2">제휴 문의</span></div>
+          <div class="contact-type"><div class="contact-type-dot"></div><span data-i18n="contact.t3">프로그램 문의</span></div>
+          <div class="contact-type"><div class="contact-type-dot"></div><span data-i18n="contact.t4">기업 교육 문의</span></div>
         </div>
       </div>
       <div class="contact-form reveal reveal-delay-1">
         <form id="contactForm" onsubmit="handleSubmit(event)">
           <div class="form-row">
             <div class="form-group">
-              <label for="name">이름</label>
-              <input type="text" id="name" name="name" placeholder="홍길동" required />
+              <label for="name" data-i18n="form.name">이름</label>
+              <input type="text" id="name" name="name" data-i18n-ph="form.name.ph" placeholder="홍길동" required />
             </div>
             <div class="form-group">
-              <label for="phone">연락처</label>
+              <label for="phone" data-i18n="form.phone">연락처</label>
               <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" />
             </div>
           </div>
           <div class="form-group">
-            <label for="email">이메일</label>
+            <label for="email" data-i18n="form.email">이메일</label>
             <input type="email" id="email" name="email" placeholder="example@email.com" required />
           </div>
           <div class="form-group">
-            <label for="inquiry">문의 유형</label>
+            <label for="inquiry" data-i18n="form.inquiry">문의 유형</label>
             <select id="inquiry" name="inquiry" required>
-              <option value="" disabled selected>문의 유형을 선택해주세요</option>
-              <option value="lecture">강연 문의</option>
-              <option value="partnership">제휴 문의</option>
-              <option value="program">프로그램 문의</option>
-              <option value="corporate">기업 교육 문의</option>
-              <option value="other">기타 문의</option>
+              <option value="" disabled selected data-i18n="form.inquiry.ph">문의 유형을 선택해주세요</option>
+              <option value="lecture" data-i18n="form.opt1">강연 문의</option>
+              <option value="partnership" data-i18n="form.opt2">제휴 문의</option>
+              <option value="program" data-i18n="form.opt3">프로그램 문의</option>
+              <option value="corporate" data-i18n="form.opt4">기업 교육 문의</option>
+              <option value="other" data-i18n="form.opt5">기타 문의</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="message">문의 내용</label>
-            <textarea id="message" name="message" placeholder="문의하실 내용을 자유롭게 작성해 주세요." required></textarea>
+            <label for="message" data-i18n="form.message">문의 내용</label>
+            <textarea id="message" name="message" data-i18n-ph="form.msg.ph" placeholder="문의하실 내용을 자유롭게 작성해 주세요." required></textarea>
           </div>
-          <button type="submit" class="form-submit">문의 보내기</button>
-          <p class="form-disclaimer">
+          <button type="submit" class="form-submit" data-i18n="form.submit">문의 보내기</button>
+          <p class="form-disclaimer" data-i18n="form.disclaimer">
             본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다.<br />
             질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요.
           </p>
@@ -1396,31 +1421,31 @@
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">5CODE</div>
-      <p class="footer-tagline">체질·체력·생활습관을 기반으로 설계하는 웰니스 자기관리 플랫폼</p>
+      <p class="footer-tagline" data-i18n="footer.tagline">체질·체력·생활습관을 기반으로 설계하는 웰니스 자기관리 플랫폼</p>
     </div>
     <div>
-      <div class="footer-col-title">페이지</div>
+      <div class="footer-col-title" data-i18n="footer.pages">페이지</div>
       <ul class="footer-links-list">
-        <li><a href="#why">왜 5CODE인가</a></li>
+        <li><a href="#why" data-i18n="footer.why">왜 5CODE인가</a></li>
         <li><a href="#about">Andrew Kim</a></li>
-        <li><a href="#system">체질 시스템</a></li>
-        <li><a href="#vaioh">VAIOH 방법론</a></li>
-        <li><a href="#programs">프로그램</a></li>
-        <li><a href="#media">미디어</a></li>
+        <li><a href="#system" data-i18n="footer.system">체질 시스템</a></li>
+        <li><a href="#vaioh" data-i18n="footer.vaioh">VAIOH 방법론</a></li>
+        <li><a href="#programs" data-i18n="footer.programs">프로그램</a></li>
+        <li><a href="#media" data-i18n="footer.media">미디어</a></li>
       </ul>
     </div>
     <div>
-      <div class="footer-col-title">문의</div>
+      <div class="footer-col-title" data-i18n="footer.contact.col">문의</div>
       <ul class="footer-links-list">
-        <li><a href="#contact">강연 문의</a></li>
-        <li><a href="#contact">제휴 문의</a></li>
-        <li><a href="#contact">기업 교육</a></li>
-        <li><a href="#contact">프로그램 참가</a></li>
+        <li><a href="#contact" data-i18n="footer.lecture">강연 문의</a></li>
+        <li><a href="#contact" data-i18n="footer.partnership">제휴 문의</a></li>
+        <li><a href="#contact" data-i18n="footer.corporate">기업 교육</a></li>
+        <li><a href="#contact" data-i18n="footer.program">프로그램 참가</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-disclaimer">
+    <p class="footer-disclaimer" data-i18n="footer.disclaimer">
       본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요.
     </p>
     <p class="footer-copy">© 2026 NPO Smart Healthcare · 5CODE</p>
@@ -1505,19 +1530,228 @@
     video.addEventListener('loadedmetadata', onScroll);
   })();
 
+  /* ─── i18n ─── */
+  const T = { // REPLACED BELOW
+    ko: {
+      'nav.why':'5CODE란','nav.system':'체질 시스템','nav.programs':'프로그램','nav.media':'미디어','nav.cta':'문의하기','nav.vaioh':'VAIOH 방법론',
+      'hero.headline':'내 몸에 맞는<br>건강이<br><em>진짜 건강입니다.</em>',
+      'hero.desc':'체질·체력·생활습관을 기반으로 설계하는<br>새로운 웰니스 자기관리 플랫폼, 5CODE.<br>개인에게 맞는 운동, 식사, 라이프스타일을 제안합니다.',
+      'hero.btn1':'5CODE 알아보기','hero.btn2':'강연·제휴 문의',
+      'why.label':'왜 5CODE인가','why.title':'왜 사람마다 다른<br>건강관리가 필요한가',
+      'why.sub':'같은 방법이 모두에게 맞을 수 없습니다.<br>체질과 생활습관이 다르면, 관리법도 달라져야 합니다.',
+      'why.c1.title':'체질이 다르면<br>관리법도 달라집니다','why.c1.body':'동일한 음식과 운동이 누군가에게는 이상적이지만, 다른 누군가에게는 맞지 않을 수 있습니다. 5CODE는 체질별 생활습관 가이드를 통해 나에게 맞는 방식을 찾도록 돕습니다.',
+      'why.c2.title':'운동도 나에게<br>맞아야 합니다','why.c2.body':'체질과 체력 수준을 고려하지 않은 운동은 오히려 부담이 될 수 있습니다. 개인에게 맞는 운동 유형과 강도를 파악하는 것이 지속가능한 웰니스의 시작입니다.',
+      'why.c3.title':'생활습관이 건강의<br>방향을 바꿉니다','why.c3.body':'수면, 식사, 스트레스, 활동량 등 일상의 습관들이 쌓여 건강의 방향을 결정합니다. 5CODE는 생활습관 개선을 통한 자기관리 가이드를 제공합니다.',
+      'system.title':'다섯 가지 체질 유형','system.sub':'5CODE는 체질·체력·생활습관을 기반으로 개인 유형을 분류하는 웰니스 자기관리 참고 체계입니다. 각 유형별 운동·식사·라이프스타일 가이드를 통해 나에게 맞는 자기관리를 시작할 수 있습니다.',
+      'code.H.type':'균형·에너지 보존형','code.H.desc':'안정된 루틴과 충분한 회복을 통해 균형 있는 생활관리를 추구하는 체질 유형',
+      'code.I.type':'활동·근골격 중심형','code.I.desc':'활발한 신체활동과 근골격 관리를 중심으로 한 생활관리가 잘 맞는 체질 유형',
+      'code.Y.type':'에너지·순환 활성형','code.Y.desc':'에너지 순환과 활력 관리를 중심으로 생활습관 개선 효과가 두드러지는 체질 유형',
+      'code.A.type':'심뇌·조화 관리형','code.A.desc':'균형 잡힌 생활 리듬과 심리적 안정이 웰니스 관리에 핵심이 되는 체질 유형',
+      'code.O.type':'소화·기초 자연형','code.O.desc':'소화기 중심의 기초 건강 관리와 자연스러운 생활 리듬이 잘 맞는 체질 유형',
+      'vaioh.title':'체형과 균형을<br>스스로 인식하는<br>자가 평가 방법론','vaioh.sub':'VAIOH는 등·체형·균형·자기 인식을 중심으로 나의 신체 상태를 스스로 파악하는 자가 인식 도구입니다. 실제 의료 진단이 아닌, 생활습관 관리의 방향을 잡기 위한 체질 분류 참고 체계입니다.',
+      'vaioh.c1.title':'등 · 척추 자가 인식','vaioh.c1.body':'등과 척추의 긴장, 피로, 자세 습관을 스스로 인식하는 첫 번째 단계. 일상 속 자세 패턴이 생활관리의 단서가 됩니다.',
+      'vaioh.c2.title':'체형 균형 자기 분류','vaioh.c2.body':'나의 체형적 특성과 신체 균형 상태를 자가 분류하는 단계. 개인 체질 분류 참고를 통해 맞춤 관리 방향을 설정합니다.',
+      'vaioh.c3.title':'생활습관 자가 평가','vaioh.c3.body':'수면, 식사, 활동량, 스트레스 등 현재 생활습관을 객관적으로 점검하는 단계.',
+      'vaioh.c4.title':'개인 맞춤 관리 설계','vaioh.c4.body':'체질·체형·생활습관 평가를 바탕으로 개인에게 맞는 운동·식사·라이프스타일을 제안하는 단계.',
+      'programs.title':'내 체질에 맞는<br>웰니스 프로그램','programs.sub':'강연부터 기업 교육까지, 5CODE 웰니스 체계를 다양한 방식으로 경험할 수 있습니다.',
+      'prog1.title':'5CODE 입문 강연','prog1.body':'체질·체력·생활습관 기반 웰니스의 핵심을 소개하는 입문 강연.','prog1.link':'강연 문의하기',
+      'prog2.title':'4주 라이프 디자인 코스','prog2.body':'나의 체질 유형을 파악하고, 4주 동안 생활습관 개선을 직접 설계하고 실천하는 자기관리 집중 코스.','prog2.link':'코스 문의하기',
+      'prog3.title':'체질별 운동·댄스 콘텐츠','prog3.body':'5CODE 체질 유형별로 설계된 움직임 콘텐츠. 나에게 맞는 운동 강도와 유형을 찾고 즐겁게 지속할 수 있는 가이드.','prog3.link':'콘텐츠 문의하기',
+      'prog4.title':'기업·단체 웰니스 교육','prog4.body':'임직원 건강증진, 팀 웰니스 문화 구축을 위한 기업 맞춤 교육 프로그램.','prog4.link':'기업 교육 문의',
+      'research.label':'신뢰 · 안전','research.title':'책임 있는<br>웰니스 자기관리','research.sub':'5CODE는 WHO 자기관리 가이드라인 및 생활습관 관리 원칙과 맥락을 함께 합니다.',
+      'media.title':'콘텐츠 · 강연 · 미디어','media.sub':'유튜브, 강연, 세미나, 교육 콘텐츠로 확장되는 5CODE 웰니스 브랜드 미디어.',
+      'contact.tagline':'함께 만드는<br><em>웰니스의 미래</em>','contact.desc':'강연 문의, 제휴 협력, 프로그램 참가, 기업 교육 등 다양한 형태의 협업을 환영합니다.',
+      'contact.t1':'강연 문의','contact.t2':'제휴 문의','contact.t3':'프로그램 문의','contact.t4':'기업 교육 문의',
+      'form.name':'이름','form.name.ph':'홍길동','form.phone':'연락처','form.email':'이메일','form.inquiry':'문의 유형','form.inquiry.ph':'문의 유형을 선택해주세요',
+      'form.opt1':'강연 문의','form.opt2':'제휴 문의','form.opt3':'프로그램 문의','form.opt4':'기업 교육 문의','form.opt5':'기타 문의',
+      'form.message':'문의 내용','form.msg.ph':'문의하실 내용을 자유롭게 작성해 주세요.','form.submit':'문의 보내기',
+      'form.disclaimer':'본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다.<br>질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요.',
+      'footer.tagline':'체질·체력·생활습관을 기반으로 설계하는 웰니스 자기관리 플랫폼',
+      'footer.pages':'페이지','footer.contact.col':'문의','footer.why':'왜 5CODE인가','footer.system':'체질 시스템','footer.vaioh':'VAIOH 방법론','footer.programs':'프로그램','footer.media':'미디어',
+      'footer.lecture':'강연 문의','footer.partnership':'제휴 문의','footer.corporate':'기업 교육','footer.program':'프로그램 참가',
+      'about.name':'김정명','about.bio':'30년간 일본·한국 헬스케어 현장에서 체질 기반 자기관리 체계를 연구하고 사업화해온 웰니스 컨설턴트입니다. 전통 동양의학의 지혜를 현대적 웰니스 언어로 재해석하여 5CODE와 VAIOH 방법론을 개발했습니다.<br><br>의료 행위가 아닌 생활습관·체질 기반의 자기관리 콘텐츠를 개발하고 교육하며, NPO Smart Healthcare를 통해 한국과 일본, 그리고 글로벌 웰니스 네트워크를 연결하고 있습니다.',
+      'about.tag1':'체질 기반 웰니스 연구','about.tag2':'라이프스타일 교육','about.tag3':'한·일 헬스케어 컨설팅','about.tag4':'5CODE / VAIOH 개발자',
+      'about.year1':'현재','about.desc1':'NPO Smart Healthcare 회장 · 5CODE/VAIOH 체계 총괄',
+      'about.desc2':'PFT5 · PFA5 디지털 웰니스 플랫폼 공개','about.desc3':'한·일 헬스케어 현장 30년 경력 체질 연구 · 콘텐츠 개발',
+      'about.year4':'기반','about.desc4':'동양의학 · 현대 생활의학(PLM) · WHO 자기관리 가이드라인',
+      'system.notice':'체질 분류는 자기관리 가이드를 위한 <strong>참고 도구</strong>입니다. 의학적 진단을 대체하지 않으며, 의료진 상담과 병행하여 활용하시기 바랍니다.',
+      'digital.title':'디지털로 확장하는<br>웰니스 자기관리','digital.sub':'5CODE 체질 기반 웰니스 관리를 디지털 환경에서 일상적으로 실천할 수 있도록 설계된 플랫폼 비전입니다.',
+      'digital.pft.body':'5CODE 체질 유형별 맞춤 체력 측정 및 생활관리 트랙. 개인의 체질과 체력 수준에 따른 운동·섭생·라이프스타일 데이터를 기반으로 최적화된 건강관리 보조 경로를 제시합니다.',
+      'digital.pft.f1':'체질별 맞춤 체력 측정 가이드','digital.pft.f2':'생활습관 데이터 기록 및 분석','digital.pft.f3':'운동·식사·라이프스타일 제안',
+      'digital.pfa.body':'5CODE 모바일 웰니스 관리 앱. WHO 자기관리(Self-care) 가이드라인에 기반한 개인 맞춤형 생활습관 플랫폼으로 나만의 웰니스 여정을 일상에서 지속적으로 지원합니다.',
+      'digital.pfa.f1':'개인 체질 유형별 대시보드','digital.pfa.f2':'일상 생활습관 모니터링 및 가이드','digital.pfa.f3':'웰니스 목표 설정 및 자기관리 보조',
+      'research.c1.title':'WHO 자기관리 원칙 기반','research.c1.body':'세계보건기구(WHO)의 자기관리(Self-care) 가이드라인과 신체활동 권장 방향에 부합하는 생활습관 개선 콘텐츠를 제공합니다.',
+      'research.c2.title':'생활습관 개선 중심','research.c2.body':'운동, 수면, 식사, 스트레스 관리 등 일상 생활습관 개선을 핵심으로 합니다. 체질 분류는 자기관리 방향 참고를 위한 도구로 활용됩니다.',
+      'research.c3.title':'의료진 상담과 병행','research.c3.body':'건강 상태에 따라 의료진 상담을 먼저 받으시기 바랍니다. 5CODE는 의료 진단·치료의 보완이 아닌, 일상 자기관리 가이드를 목적으로 합니다.',
+      'research.disclaimer':'<strong>안전 고지 —</strong> 본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요. 모든 신체 활동은 개인의 건강 상태에 맞게 조절하시기 바랍니다.',
+      'media.c1.tag':'강연 · 세미나','media.c1.title':'5CODE 웰니스 강연','media.c1.sub':'체질 기반 자기관리 웰니스를 주제로 한 프리미엄 강연 및 세미나 활동',
+      'media.c2.tag':'인터뷰 · 미디어','media.c2.title':'WHIZONOMICS 인터뷰','media.c2.sub':'5CODE 체질 웰니스 비전과 K-Health 미래에 대해 이야기하다',
+      'media.c3.tag':'글로벌 · 네트워크','media.c3.title':'글로벌 웰니스 네트워크','media.c3.sub':'한국·일본을 잇는 NPO Smart Healthcare의 국제 웰니스 플랫폼 확장 스토리',
+      'footer.disclaimer':'본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요.',
+      'form.sending':'전송 중...','form.sent':'문의가 접수되었습니다 ✓',
+    },
+    en: {
+      'nav.why':'What is 5CODE','nav.system':'Body Type System','nav.programs':'Programs','nav.media':'Media','nav.cta':'Contact','nav.vaioh':'VAIOH Method',
+      'hero.headline':'Your Body,<br>Your Health,<br><em>Your True Wellness.</em>',
+      'hero.desc':'A wellness self-care platform designed<br>around body type, fitness & lifestyle — 5CODE.<br>Personalized exercise, diet & lifestyle guidance.',
+      'hero.btn1':'Explore 5CODE','hero.btn2':'Lecture & Partnership',
+      'why.label':'Why 5CODE','why.title':'Why Does Everyone Need<br>Personalized Healthcare?',
+      'why.sub':'The same approach cannot work for everyone.<br>Different body types require different care.',
+      'why.c1.title':'Different Body Types<br>Require Different Care','why.c1.body':'The same food and exercise may be ideal for one person but wrong for another. 5CODE helps you find the right approach through body-type-specific lifestyle guides.',
+      'why.c2.title':'Exercise Must Also<br>Fit Your Body','why.c2.body':'Exercise that ignores your body type can cause strain. Finding the right type and intensity of exercise is the start of sustainable wellness.',
+      'why.c3.title':'Lifestyle Habits Shape<br>Your Health Direction','why.c3.body':'Daily habits—sleep, meals, stress, and activity—accumulate to determine your health. 5CODE provides lifestyle improvement guides for self-care.',
+      'system.title':'Five Body Type Codes','system.sub':'5CODE classifies individual types based on body constitution, fitness, and lifestyle as a wellness self-care reference. Use each type\'s exercise, diet & lifestyle guide to start personalized care.',
+      'code.H.type':'Balance · Energy Conservation','code.H.desc':'A body type that pursues balanced daily care through stable routines and adequate recovery.',
+      'code.I.type':'Active · Musculoskeletal Focus','code.I.desc':'A body type well-suited to daily care centered on active physical activity and musculoskeletal management.',
+      'code.Y.type':'Energy · Circulation Active','code.Y.desc':'A body type where lifestyle improvement effects are prominent, centered on energy circulation and vitality.',
+      'code.A.type':'Mind-Brain · Harmony','code.A.desc':'A body type where balanced life rhythm and psychological stability are key to wellness management.',
+      'code.O.type':'Digestive · Natural Baseline','code.O.desc':'A body type well-suited to digestive-centered basic health care and a natural life rhythm.',
+      'vaioh.title':'A Self-Assessment Method<br>to Recognize Your Body<br>Type & Balance','vaioh.sub':'VAIOH is a self-awareness tool to assess your physical condition centered on back, body shape, balance, and self-recognition. It is a body-type reference system for lifestyle management, not a medical diagnosis.',
+      'vaioh.c1.title':'Back · Spine Self-Awareness','vaioh.c1.body':'The first step: self-recognizing tension, fatigue, and postural habits in your back and spine. Daily postural patterns become clues for lifestyle management.',
+      'vaioh.c2.title':'Body Shape Balance Self-Classification','vaioh.c2.body':'Classifying your physical characteristics and body balance. Use personal body-type references to set a customized care direction.',
+      'vaioh.c3.title':'Lifestyle Habit Self-Assessment','vaioh.c3.body':'Objectively reviewing current lifestyle habits: sleep, meals, activity, and stress. This is the starting point for self-care guidance.',
+      'vaioh.c4.title':'Personalized Care Design','vaioh.c4.body':'Based on constitution, body shape, and lifestyle assessment, personalized exercise, diet, and lifestyle suggestions. Consult a healthcare professional alongside.',
+      'programs.title':'Wellness Programs<br>for Your Body Type','programs.sub':'From lectures to corporate education, experience the 5CODE wellness system in a variety of ways.',
+      'prog1.title':'5CODE Intro Lecture','prog1.body':'An introductory lecture on the essentials of body-type-based wellness. Why everyone needs different care, and where to start.','prog1.link':'Lecture Inquiry',
+      'prog2.title':'4-Week Life Design Course','prog2.body':'Identify your body type and design & practice lifestyle improvements over 4 weeks. Goal: building a routine that fits you.','prog2.link':'Course Inquiry',
+      'prog3.title':'Body-Type Exercise & Dance Content','prog3.body':'Movement content designed per 5CODE body type. Find the right intensity and type of exercise, and enjoy sustaining it.','prog3.link':'Content Inquiry',
+      'prog4.title':'Corporate Wellness Education','prog4.body':'Customized corporate education for employee wellness and team culture building. Lifestyle management guides applied at the organizational level.','prog4.link':'Corporate Inquiry',
+      'research.label':'Trust · Safety','research.title':'Responsible<br>Wellness Self-Care','research.sub':'5CODE aligns with WHO self-care guidelines and lifestyle management principles. All content is a self-care guide for health support, not a substitute for medical practice.',
+      'media.title':'Content · Lectures · Media','media.sub':'5CODE wellness brand media expanding through YouTube, lectures, seminars, and educational content.',
+      'contact.tagline':'Creating the Future<br><em>of Wellness Together</em>','contact.desc':'We welcome collaboration through lectures, partnerships, program participation, and corporate education.',
+      'contact.t1':'Lecture Inquiry','contact.t2':'Partnership Inquiry','contact.t3':'Program Inquiry','contact.t4':'Corporate Education',
+      'form.name':'Name','form.name.ph':'John Doe','form.phone':'Phone','form.email':'Email','form.inquiry':'Inquiry Type','form.inquiry.ph':'Select inquiry type',
+      'form.opt1':'Lecture Inquiry','form.opt2':'Partnership Inquiry','form.opt3':'Program Inquiry','form.opt4':'Corporate Education','form.opt5':'Other',
+      'form.message':'Message','form.msg.ph':'Please write your inquiry freely.','form.submit':'Send Inquiry',
+      'form.disclaimer':'This content does not replace medical diagnosis or treatment.<br>Please consult a healthcare professional if you have any medical conditions.',
+      'footer.tagline':'A wellness self-care platform designed around body type, fitness & lifestyle',
+      'footer.pages':'Pages','footer.contact.col':'Contact','footer.why':'Why 5CODE','footer.system':'Body Type System','footer.vaioh':'VAIOH Method','footer.programs':'Programs','footer.media':'Media',
+      'footer.lecture':'Lecture Inquiry','footer.partnership':'Partnership','footer.corporate':'Corporate','footer.program':'Program',
+      'about.name':'Kim Jungmyung','about.bio':'A wellness consultant with 30 years of experience in the Korean and Japanese healthcare field, researching and commercializing a body-type-based self-care system. He reinterpreted the wisdom of traditional Eastern medicine in modern wellness language and developed the 5CODE and VAIOH methodologies.<br><br>He develops and teaches lifestyle and body-type-based self-care content (not medical practice), and connects Korea, Japan, and the global wellness network through NPO Smart Healthcare.',
+      'about.tag1':'Body-Type Wellness Research','about.tag2':'Lifestyle Education','about.tag3':'Korea·Japan Healthcare Consulting','about.tag4':'5CODE / VAIOH Developer',
+      'about.year1':'Present','about.desc1':'Chairman of NPO Smart Healthcare · 5CODE/VAIOH Director',
+      'about.desc2':'PFT5 · PFA5 Digital Wellness Platform Launch','about.desc3':'30 Years in Korea·Japan Healthcare · Body-Type Research & Content',
+      'about.year4':'Foundation','about.desc4':'Eastern Medicine · Modern Lifestyle Medicine (PLM) · WHO Self-Care Guidelines',
+      'system.notice':'Body-type classification is a <strong>reference tool</strong> for self-care guidance. It does not replace medical diagnosis. Please use it alongside consultation with healthcare professionals.',
+      'digital.title':'Wellness Self-Care<br>Expanded Digitally','digital.sub':'A platform vision designed so that 5CODE body-type-based wellness management can be practiced daily in a digital environment.',
+      'digital.pft.body':'Personalized fitness measurement and lifestyle management track by 5CODE body type. Presents optimized health management pathways based on exercise, diet, and lifestyle data tailored to individual body type and fitness level.',
+      'digital.pft.f1':'Body-Type Personalized Fitness Measurement Guide','digital.pft.f2':'Lifestyle Habit Data Recording & Analysis','digital.pft.f3':'Exercise · Diet · Lifestyle Suggestions',
+      'digital.pfa.body':'5CODE mobile wellness management app. A personalized lifestyle platform based on WHO Self-care guidelines, continuously supporting your wellness journey in daily life.',
+      'digital.pfa.f1':'Personal Body-Type Dashboard','digital.pfa.f2':'Daily Lifestyle Monitoring & Guide','digital.pfa.f3':'Wellness Goal Setting & Self-Care Support',
+      'research.c1.title':'Based on WHO Self-Care Principles','research.c1.body':'Provides lifestyle improvement content aligned with WHO Self-care guidelines and physical activity recommendations.',
+      'research.c2.title':'Lifestyle Improvement Focused','research.c2.body':'Core focus is daily lifestyle improvement: exercise, sleep, diet, and stress management. Body-type classification is used as a tool for self-care direction reference.',
+      'research.c3.title':'Alongside Medical Consultation','research.c3.body':'Please consult a healthcare professional first based on your health condition. 5CODE aims for daily self-care guidance, not as a complement to medical diagnosis or treatment.',
+      'research.disclaimer':'<strong>Safety Notice —</strong> This content does not replace medical diagnosis or treatment. Body-type classification and wellness guides are reference information for lifestyle management support. If you have a medical condition or are taking medication, please consult a healthcare professional. All physical activity should be adjusted to your individual health condition.',
+      'media.c1.tag':'Lecture · Seminar','media.c1.title':'5CODE Wellness Lecture','media.c1.sub':'Premium lecture and seminar activities on the theme of body-type-based self-care wellness',
+      'media.c2.tag':'Interview · Media','media.c2.title':'WHIZONOMICS Interview','media.c2.sub':'Discussing the 5CODE body-type wellness vision and the future of K-Health',
+      'media.c3.tag':'Global · Network','media.c3.title':'Global Wellness Network','media.c3.sub':'The story of NPO Smart Healthcare's international wellness platform expansion connecting Korea and Japan',
+      'footer.disclaimer':'This content does not replace medical diagnosis or treatment. Body-type classification and wellness guides are reference information for lifestyle management support. If you have a medical condition or are taking medication, please consult a healthcare professional.',
+      'form.sending':'Sending...','form.sent':'Inquiry received ✓',
+    },
+    ja: {
+      'nav.why':'5CODEとは','nav.system':'体質システム','nav.programs':'プログラム','nav.media':'メディア','nav.cta':'お問い合わせ','nav.vaioh':'VAIOHメソッド',
+      'hero.headline':'自分の体に合った<br>健康こそが<br><em>本当の健康です。</em>',
+      'hero.desc':'体質・体力・生活習慣をもとに設計された<br>新しいウェルネス自己管理プラットフォーム、5CODE。<br>あなたに合う運動・食事・ライフスタイルをご提案します。',
+      'hero.btn1':'5CODEを詳しく','hero.btn2':'講演・提携のお問合わせ',
+      'why.label':'なぜ5CODEか','why.title':'なぜ人によって違う<br>健康管理が必要なのか',
+      'why.sub':'同じ方法が全員に合うわけではありません。<br>体質と生活習慣が違えば、管理法も変わるべきです。',
+      'why.c1.title':'体質が違えば<br>管理法も違います','why.c1.body':'同じ食事と運動が、ある人には理想的でも、別の人には合わないことがあります。5CODEは体質別の生活習慣ガイドで、自分に合う方法を見つけるお手伝いをします。',
+      'why.c2.title':'運動も自分に<br>合う必要があります','why.c2.body':'体質や体力を考慮しない運動はかえって負担になることがあります。個人に合った運動の種類と強度を把握することが、持続可能なウェルネスの始まりです。',
+      'why.c3.title':'生活習慣が健康の<br>方向を変えます','why.c3.body':'睡眠・食事・ストレス・活動量などの日常の習慣が積み重なり、健康の方向を決めます。5CODEは生活習慣改善による自己管理ガイドを提供します。',
+      'system.title':'5つの体質タイプ','system.sub':'5CODEは体質・体力・生活習慣をもとに個人タイプを分類するウェルネス自己管理参考体系です。各タイプ別の運動・食事・ライフスタイルガイドで、自分に合った自己管理を始められます。',
+      'code.H.type':'バランス・エネルギー保存型','code.H.desc':'安定したルーティンと十分な回復を通じて、バランスのとれた生活管理を追求する体質タイプ',
+      'code.I.type':'活動・筋骨格中心型','code.I.desc':'活発な身体活動と筋骨格管理を中心とした生活管理が合う体質タイプ',
+      'code.Y.type':'エネルギー・循環活性型','code.Y.desc':'エネルギー循環と活力管理を中心に生活習慣改善効果が際立つ体質タイプ',
+      'code.A.type':'心脳・調和管理型','code.A.desc':'バランスのとれた生活リズムと心理的安定がウェルネス管理の核となる体質タイプ',
+      'code.O.type':'消化・基礎自然型','code.O.desc':'消化器中心の基礎健康管理と自然な生活リズムが合う体質タイプ',
+      'vaioh.title':'体型とバランスを<br>自ら認識する<br>自己評価メソッド','vaioh.sub':'VAIOHは背中・体型・バランス・自己認識を中心に、自分の身体状態を自ら把握する自己認識ツールです。実際の医療診断ではなく、生活習慣管理の方向を定めるための体質分類参考体系です。',
+      'vaioh.c1.title':'背中・脊椎の自己認識','vaioh.c1.body':'背中と脊椎の緊張・疲労・姿勢習慣を自ら認識する第一ステップ。日常の姿勢パターンが生活管理の手がかりとなります。',
+      'vaioh.c2.title':'体型バランス自己分類','vaioh.c2.body':'自分の体型的特性と身体バランスを自己分類するステップ。個人の体質分類参考を通じて、カスタム管理の方向を設定します。',
+      'vaioh.c3.title':'生活習慣自己評価','vaioh.c3.body':'睡眠・食事・活動量・ストレスなど現在の生活習慣を客観的に点検するステップ。',
+      'vaioh.c4.title':'個人カスタム管理設計','vaioh.c4.body':'体質・体型・生活習慣評価をもとに、個人に合う運動・食事・ライフスタイルを提案するステップ。',
+      'programs.title':'あなたの体質に合った<br>ウェルネスプログラム','programs.sub':'講演から企業教育まで、5CODEウェルネス体系をさまざまな形で体験できます。',
+      'prog1.title':'5CODE入門講演','prog1.body':'体質・体力・生活習慣ベースのウェルネスの核心を紹介する入門講演。','prog1.link':'講演お問い合わせ',
+      'prog2.title':'4週間ライフデザインコース','prog2.body':'自分の体質タイプを把握し、4週間で生活習慣改善を自ら設計・実践する自己管理集中コース。','prog2.link':'コースお問い合わせ',
+      'prog3.title':'体質別運動・ダンスコンテンツ','prog3.body':'5CODE体質タイプ別に設計された動きのコンテンツ。','prog3.link':'コンテンツのお問い合わせ',
+      'prog4.title':'企業・団体ウェルネス教育','prog4.body':'従業員の健康増進、チームウェルネス文化構築のための企業カスタム教育プログラム。','prog4.link':'企業教育のお問い合わせ',
+      'research.label':'信頼・安全','research.title':'責任ある<br>ウェルネス自己管理','research.sub':'5CODEはWHO自己管理ガイドラインおよび生活習慣管理の原則と文脈を共にします。',
+      'media.title':'コンテンツ・講演・メディア','media.sub':'YouTube、講演、セミナー、教育コンテンツで広がる5CODEウェルネスブランドメディア。',
+      'contact.tagline':'共に作る<br><em>ウェルネスの未来</em>','contact.desc':'講演、提携、プログラム参加、企業教育など、さまざまな形の協力をお待ちしています。',
+      'contact.t1':'講演のお問い合わせ','contact.t2':'提携のお問い合わせ','contact.t3':'プログラムのお問い合わせ','contact.t4':'企業教育のお問い合わせ',
+      'form.name':'お名前','form.name.ph':'山田 太郎','form.phone':'電話番号','form.email':'メールアドレス','form.inquiry':'お問い合わせ種別','form.inquiry.ph':'種別を選択してください',
+      'form.opt1':'講演のお問い合わせ','form.opt2':'提携のお問い合わせ','form.opt3':'プログラムのお問い合わせ','form.opt4':'企業教育のお問い合わせ','form.opt5':'その他',
+      'form.message':'お問い合わせ内容','form.msg.ph':'お問い合わせ内容をご自由にお書きください。','form.submit':'送信する',
+      'form.disclaimer':'本コンテンツは医学的診断・治療に代わるものではありません。<br>疾患のある方や薬を服用中の方は必ず医療専門家にご相談ください。',
+      'footer.tagline':'体質・体力・生活習慣をもとに設計するウェルネス自己管理プラットフォーム',
+      'footer.pages':'ページ','footer.contact.col':'お問い合わせ','footer.why':'なぜ5CODEか','footer.system':'体質システム','footer.vaioh':'VAIOHメソッド','footer.programs':'プログラム','footer.media':'メディア',
+      'footer.lecture':'講演のお問い合わせ','footer.partnership':'提携のお問い合わせ','footer.corporate':'企業教育','footer.program':'プログラム参加',
+      'about.name':'金 正明','about.bio':'30年間、日本・韓国のヘルスケア現場で体質ベースの自己管理体系を研究・事業化してきたウェルネスコンサルタントです。伝統東洋医学の知恵を現代的なウェルネス言語で再解釈し、5CODEとVAIOHメソッドを開発しました。<br><br>医療行為ではなく、生活習慣・体質ベースの自己管理コンテンツを開発・教育し、NPO Smart Healthcareを通じて韓国・日本、そしてグローバルなウェルネスネットワークをつなげています。',
+      'about.tag1':'体質ベースウェルネス研究','about.tag2':'ライフスタイル教育','about.tag3':'韓・日ヘルスケアコンサルティング','about.tag4':'5CODE / VAIOH開発者',
+      'about.year1':'現在','about.desc1':'NPO Smart Healthcare 会長・5CODE/VAIOH体系統括',
+      'about.desc2':'PFT5・PFA5デジタルウェルネスプラットフォーム公開','about.desc3':'韓・日ヘルスケア現場30年 体質研究・コンテンツ開発',
+      'about.year4':'基盤','about.desc4':'東洋医学・現代生活医学(PLM)・WHO自己管理ガイドライン',
+      'system.notice':'体質分類は自己管理ガイドのための<strong>参考ツール</strong>です。医学的診断に代わるものではなく、医療専門家の相談と併用してご活用ください。',
+      'digital.title':'デジタルで広がる<br>ウェルネス自己管理','digital.sub':'5CODE体質ベースのウェルネス管理を、デジタル環境で日常的に実践できるよう設計されたプラットフォームビジョンです。',
+      'digital.pft.body':'5CODE体質タイプ別のカスタム体力測定および生活管理トラック。個人の体質と体力レベルに応じた運動・摂生・ライフスタイルデータをもとに、最適化された健康管理補助経路を提示します。',
+      'digital.pft.f1':'体質別カスタム体力測定ガイド','digital.pft.f2':'生活習慣データ記録・分析','digital.pft.f3':'運動・食事・ライフスタイル提案',
+      'digital.pfa.body':'5CODEモバイルウェルネス管理アプリ。WHO自己管理(Self-care)ガイドラインに基づいた個人カスタム生活習慣プラットフォームで、自分だけのウェルネスの旅を日常的にサポートします。',
+      'digital.pfa.f1':'個人体質タイプ別ダッシュボード','digital.pfa.f2':'日常生活習慣モニタリング・ガイド','digital.pfa.f3':'ウェルネス目標設定・自己管理サポート',
+      'research.c1.title':'WHO自己管理原則ベース','research.c1.body':'世界保健機関(WHO)の自己管理(Self-care)ガイドラインおよび身体活動推奨方向に沿った生活習慣改善コンテンツを提供します。',
+      'research.c2.title':'生活習慣改善中心','research.c2.body':'運動・睡眠・食事・ストレス管理など日常の生活習慣改善を核心とします。体質分類は自己管理の方向参考のためのツールとして活用されます。',
+      'research.c3.title':'医療専門家との併用','research.c3.body':'健康状態に応じて、まず医療専門家にご相談ください。5CODEは医療診断・治療の補完ではなく、日常の自己管理ガイドを目的としています。',
+      'research.disclaimer':'<strong>安全のご案内 —</strong> 本コンテンツは医学的診断・治療に代わるものではありません。体質分類およびウェルネスガイドは生活習慣管理補助のための参考情報です。疾患のある方や薬を服用中の方は必ず医療専門家にご相談ください。すべての身体活動は個人の健康状態に合わせて調整してください。',
+      'media.c1.tag':'講演・セミナー','media.c1.title':'5CODEウェルネス講演','media.c1.sub':'体質ベース自己管理ウェルネスをテーマにしたプレミアム講演・セミナー活動',
+      'media.c2.tag':'インタビュー・メディア','media.c2.title':'WHIZONOMICSインタビュー','media.c2.sub':'5CODE体質ウェルネスビジョンとK-Healthの未来について語る',
+      'media.c3.tag':'グローバル・ネットワーク','media.c3.title':'グローバルウェルネスネットワーク','media.c3.sub':'韓国・日本をつなぐNPO Smart Healthcareの国際ウェルネスプラットフォーム拡張ストーリー',
+      'footer.disclaimer':'本コンテンツは医学的診断・治療に代わるものではありません。体質分類およびウェルネスガイドは生活習慣管理補助のための参考情報です。疾患のある方や薬を服用中の方は必ず医療専門家にご相談ください。',
+      'form.sending':'送信中...','form.sent':'お問い合わせを受け付けました ✓',
+    }
+  };
+
+  let currentLang = localStorage.getItem('5code_lang') || 'ko';
+
+  function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('5code_lang', lang);
+    const d = T[lang];
+    // Update data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (d[key] !== undefined) el.innerHTML = d[key];
+    });
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if (d[key] !== undefined) el.placeholder = d[key];
+    });
+    // Update lang buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    // Update form submit button text (reset state)
+    const submitBtn = document.querySelector('.form-submit');
+    if (submitBtn && !submitBtn.disabled) submitBtn.textContent = d['form.submit'] || '문의 보내기';
+    // Update page title
+    document.documentElement.lang = lang;
+  }
+
+  // Init on load
+  setLang(currentLang);
+
   /* ─ Contact form ─ */
   function handleSubmit(e) {
     e.preventDefault();
     const btn = e.target.querySelector('.form-submit');
-    btn.textContent = '전송 중...';
+    const d = T[currentLang];
+    btn.textContent = d['form.sending'] || '전송 중...';
     btn.disabled = true;
     setTimeout(() => {
-      btn.textContent = '문의가 접수되었습니다 ✓';
+      btn.textContent = d['form.sent'] || '문의가 접수되었습니다 ✓';
       btn.style.background = 'var(--sage)';
       btn.style.color = 'var(--charcoal)';
       e.target.reset();
       setTimeout(() => {
-        btn.textContent = '문의 보내기';
+        btn.textContent = d['form.submit'] || '문의 보내기';
         btn.style.background = '';
         btn.style.color = '';
         btn.disabled = false;
