@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>김정명 Andrew Kim — 5CODE 웰니스 플랫폼</title>
+  <meta name="description" content="체질·체력·생활습관을 기반으로 설계하는 웰니스 자기관리 플랫폼, 5CODE. 내 몸에 맞는 건강이 진짜 건강입니다." />
+  <meta property="og:title" content="김정명 Andrew Kim — 5CODE 웰니스 플랫폼" />
+  <meta property="og:description" content="체질·체력·생활습관을 기반으로 설계하는 개인 맞춤 웰니스 플랫폼, 5CODE." />
+  <meta property="og:image" content="images/jungmyung1.png" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:      #F8F5EF;
+      --beige:      #EFE7D8;
+      --green:      #173F35;
+      --green-mid:  #1F5446;
+      --sage:       #A8BFA3;
+      --gold:       #C6A15B;
+      --gold-light: #DEC07A;
+      --charcoal:   #2B2B2B;
+      --muted:      #7A7A72;
+      --white:      #FFFFFF;
+      --border:     rgba(43,43,43,0.12);
+      --shadow-sm:  0 2px 12px rgba(43,43,43,0.08);
+      --shadow-md:  0 8px 32px rgba(43,43,43,0.12);
+      --shadow-lg:  0 20px 60px rgba(43,43,43,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.75s cubic-bezier(.22,.61,.36,1), transform 0.75s cubic-bezier(.22,.61,.36,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 64px;
+      transition: background 0.35s, padding 0.35s, box-shadow 0.35s;
+    }
+    nav.scrolled {
+      background: rgba(248,245,239,0.95);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      padding: 16px 64px;
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--green); letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+    .nav-logo sub {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 10px; font-weight: 400;
+      color: var(--muted); letter-spacing: 0.12em;
+      text-transform: uppercase; vertical-align: baseline;
+      margin-left: 6px;
+    }
+
+    .nav-links {
+      display: flex; gap: 40px; list-style: none;
+    }
+    .nav-links a {
+      color: var(--charcoal); text-decoration: none;
+      font-size: 14px; font-weight: 400; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+
+    .nav-cta {
+      background: var(--green); color: var(--ivory);
+      border: none; border-radius: 4px;
+      padding: 10px 24px; font-size: 13px; font-weight: 500;
+      font-family: 'Noto Sans KR', sans-serif;
+      cursor: pointer; letter-spacing: 0.04em;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--green-mid); transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--charcoal); transition: all 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: var(--ivory); flex-direction: column;
+      align-items: center; justify-content: center; gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 26px; font-weight: 700; color: var(--charcoal);
+      text-decoration: none; letter-spacing: -0.01em;
+    }
+    .mobile-menu a:hover { color: var(--green); }
+    .mobile-menu .mobile-cta {
+      margin-top: 12px;
+      background: var(--green); color: var(--ivory);
+      border-radius: 4px; padding: 14px 40px;
+      font-size: 16px; font-weight: 500;
+    }
+
+    /* ─── SHARED LAYOUT ─── */
+    .container {
+      max-width: 1280px; margin: 0 auto; padding: 0 64px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(34px, 4vw, 54px);
+      font-weight: 800; line-height: 1.15;
+      letter-spacing: -0.025em; color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+
+    .section-sub {
+      font-size: 17px; color: var(--muted);
+      line-height: 1.85; font-weight: 300;
+      max-width: 580px; margin-bottom: 64px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; border-radius: 4px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
+      text-decoration: none; cursor: pointer; border: none;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: var(--green); color: var(--ivory);
+    }
+    .btn-primary:hover { background: var(--green-mid); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    .btn-outline {
+      background: transparent; color: var(--charcoal);
+      border: 1.5px solid var(--charcoal);
+    }
+    .btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-2px); }
+
+    .btn-outline-light {
+      background: transparent; color: var(--ivory);
+      border: 1.5px solid rgba(248,245,239,0.5);
+    }
+    .btn-outline-light:hover { border-color: var(--ivory); background: rgba(248,245,239,0.1); }
+
+    /* ─── S1: HERO ─── */
+    #hero {
+      background: #0a0a0a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative; overflow: hidden;
+    }
+
+    /* 스크롤 드리븐 영상 배경 */
+    .hero-video-bg {
+      position: absolute; inset: 0; z-index: 0;
+      overflow: hidden;
+    }
+    .hero-video-bg video {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .hero-video-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.72) 0%,
+        rgba(0,0,0,0.45) 55%,
+        rgba(0,0,0,0.15) 100%
+      );
+    }
+    .hero-video-overlay-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+    }
+
+    /* 스크롤 진행 인디케이터 */
+    .hero-scroll-progress {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px; z-index: 10;
+      background: rgba(255,255,255,0.12);
+    }
+    .hero-scroll-progress-bar {
+      height: 100%; width: 0%;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      transition: width 0.1s linear;
+    }
+
+    .hero-bg-circle { display: none; }
+    .hero-bg-line { display: none; }
+
+    .hero-left {
+      padding: 120px 64px 80px;
+      position: relative; z-index: 1;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow-line {
+      width: 32px; height: 1px; background: var(--gold);
+    }
+    .hero-eyebrow-text {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero-headline {
+      font-size: clamp(40px, 4.5vw, 68px);
+      font-weight: 900; line-height: 1.12;
+      letter-spacing: -0.03em; color: #ffffff;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--gold-light);
+    }
+
+    .hero-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 1.6vw, 22px);
+      font-weight: 500; font-style: italic;
+      color: var(--gold); margin-bottom: 28px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-desc {
+      font-size: 16px; color: rgba(255,255,255,0.78);
+      line-height: 1.9; font-weight: 300;
+      max-width: 460px; margin-bottom: 48px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+
+    .hero-right { display: none; }
+
+    /* ─── S2: WHY 5CODE ─── */
+    #why {
+      background: var(--white);
+      padding: 120px 0;
+    }
+
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 32px; margin-top: 0;
+    }
+
+    .why-card {
+      padding: 48px 40px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--white);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .why-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+
+    .why-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px; font-weight: 700; font-style: italic;
+      color: var(--beige); line-height: 1;
+      margin-bottom: 24px;
+    }
+
+    .why-title {
+      font-size: 19px; font-weight: 700;
+      line-height: 1.4; color: var(--charcoal);
+      margin-bottom: 16px; letter-spacing: -0.01em;
+    }
+
+    .why-body {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.85; font-weight: 300;
+    }
+
+    /* ─── S3: ABOUT ANDREW KIM ─── */
+    #about {
+      background: var(--beige);
+      padding: 120px 0;
+    }
+
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+
+    .about-img-frame {
+      position: absolute; top: 24px; left: 24px; right: -24px; bottom: -24px;
+      border: 1.5px solid var(--gold); border-radius: 8px;
+      opacity: 0.4;
+    }
+
+    .about-img {
+      width: 100%; height: 560px;
+      object-fit: cover; object-position: top center;
+      border-radius: 8px;
+      position: relative; z-index: 1;
+    }
+
+    .about-content { display: flex; flex-direction: column; }
+
+    .about-name {
+      font-size: clamp(32px, 3.5vw, 48px);
+      font-weight: 900; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 6px;
+    }
+
+    .about-name-en {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 500; font-style: italic;
+      color: var(--gold); margin-bottom: 32px;
+    }
+
+    .about-bio {
+      font-size: 16px; color: var(--muted);
+      line-height: 1.9; font-weight: 300; margin-bottom: 40px;
+    }
+
+    .about-tags {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
+    }
+    .about-tag {
+      padding: 8px 18px; border-radius: 100px;
+      border: 1px solid var(--border);
+      font-size: 13px; font-weight: 400; color: var(--charcoal);
+      background: rgba(255,255,255,0.6);
+    }
+
+    .about-career {
+      border-top: 1px solid var(--border); padding-top: 32px;
+    }
+    .about-career-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .about-career-year {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500; color: var(--gold);
+      letter-spacing: 0.06em; white-space: nowrap;
+      min-width: 60px; padding-top: 2px;
+    }
+    .about-career-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ─── S4: 5CODE SYSTEM ─── */
+    #system {
+      background: var(--green);
+      padding: 120px 0;
+    }
+
+    #system .section-label { color: var(--sage); }
+    #system .section-title { color: var(--ivory); }
+    #system .section-sub { color: rgba(248,245,239,0.65); }
+
+    .code-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 20px;
+    }
+
+    .code-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; padding: 36px 24px;
+      text-align: center;
+      transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    }
+    .code-card:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(198,161,91,0.5);
+      transform: translateY(-6px);
+    }
+
+    .code-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px; font-weight: 700;
+      color: var(--gold); line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .code-name {
+      font-size: 14px; font-weight: 700;
+      color: var(--ivory); margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .code-type {
+      font-size: 12px; color: var(--sage);
+      line-height: 1.6; font-weight: 300;
+    }
+
+    .code-divider {
+      width: 24px; height: 1px; background: var(--gold);
+      margin: 12px auto; opacity: 0.4;
+    }
+
+    .code-desc {
+      font-size: 13px; color: rgba(248,245,239,0.55);
+      line-height: 1.7; font-weight: 300;
+    }
+
+    /* ─── S5: VAIOH METHOD ─── */
+    #vaioh {
+      background: var(--ivory);
+      padding: 120px 0;
+    }
+
+    .vaioh-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+      margin-bottom: 80px;
+    }
+
+    .vaioh-pillars {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .vaioh-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 40px 32px;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .vaioh-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+
+    .vaioh-icon {
+      width: 48px; height: 48px; border-radius: 8px;
+      background: var(--beige);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; font-size: 22px;
+    }
+
+    .vaioh-card-title {
+      font-size: 17px; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .vaioh-card-body {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.8; font-weight: 300;
+    }
+
+    .vaioh-notice {
+      margin-top: 48px; padding: 24px 32px;
+      background: var(--beige); border-radius: 8px;
+      border-left: 3px solid var(--gold);
+    }
+    .vaioh-notice p {
+      font-size: 13px; color: var(--muted);
+      line-height: 1.75; font-weight: 300;
+    }
+    .vaioh-notice strong { color: var(--charcoal); font-weight: 500; }
+
+    /* ─── S6: PROGRAMS ─── */
+    #programs {
+      background: var(--white);
+      padding: 120px 0;
+    }
+
+    .programs-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .program-card {
+      background: var(--ivory);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 48px 40px;
+      position: relative; overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .program-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gold); opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .program-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+    .program-card:hover::before { opacity: 1; }
+
+    .program-tag {
+      display: inline-block; padding: 5px 14px;
+      background: rgba(198,161,91,0.12); border-radius: 100px;
+      font-size: 11px; font-weight: 500; color: var(--gold);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .program-title {
+      font-size: 22px; font-weight: 800;
+      color: var(--charcoal); margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .program-body {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.85; font-weight: 300;
+      margin-bottom: 28px;
+    }
+
+    .program-link {
+      font-size: 13px; font-weight: 500;
+      color: var(--green); letter-spacing: 0.04em;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .program-link::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+    .program-link:hover::after { transform: translateX(4px); }
+
+    .program-num {
+      position: absolute; top: 40px; right: 40px;
+      font-family: 'Playfair Display', serif;
+      font-size: 80px; font-weight: 700; font-style: italic;
+      color: var(--beige); line-height: 1; opacity: 0.6;
+    }
+
+    /* ─── S7: DIGITAL WELLNESS ─── */
+    #digital {
+      background: var(--green);
+      padding: 120px 0;
+    }
+
+    #digital .section-label { color: var(--sage); }
+    #digital .section-title { color: var(--ivory); }
+    #digital .section-sub { color: rgba(248,245,239,0.65); }
+
+    .digital-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .digital-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; padding: 48px 40px;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .digital-card:hover {
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(198,161,91,0.4);
+    }
+
+    .digital-badge {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px; font-weight: 700;
+      color: var(--gold); margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .digital-badge sub {
+      font-size: 18px; vertical-align: baseline;
+      font-style: italic;
+    }
+
+    .digital-title {
+      font-size: 16px; font-weight: 600;
+      color: var(--ivory); margin-bottom: 12px;
+      letter-spacing: 0.01em;
+    }
+
+    .digital-body {
+      font-size: 15px; color: rgba(248,245,239,0.6);
+      line-height: 1.85; font-weight: 300;
+    }
+
+    .digital-features {
+      margin-top: 24px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .digital-feature {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: rgba(248,245,239,0.7); font-weight: 300;
+    }
+    .digital-feature::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--sage); flex-shrink: 0;
+    }
+
+    /* ─── S8: RESEARCH & SAFETY ─── */
+    #research {
+      background: var(--beige);
+      padding: 120px 0;
+    }
+
+    .research-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px; margin-bottom: 64px;
+    }
+
+    .research-card {
+      background: var(--white); border-radius: 8px;
+      padding: 40px 32px;
+      border: 1px solid var(--border);
+    }
+
+    .research-icon {
+      width: 44px; height: 44px; border-radius: 8px;
+      background: var(--beige); margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    .research-title {
+      font-size: 16px; font-weight: 700;
+      color: var(--charcoal); margin-bottom: 12px;
+    }
+
+    .research-body {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.85; font-weight: 300;
+    }
+
+    .disclaimer-box {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 8px; padding: 36px 40px;
+    }
+    .disclaimer-box p {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.85; font-weight: 300;
+    }
+    .disclaimer-box strong { color: var(--charcoal); font-weight: 600; }
+
+    /* ─── S9: MEDIA ─── */
+    #media {
+      background: var(--white);
+      padding: 120px 0;
+    }
+
+    .media-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .media-card {
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.3s, transform 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .media-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
+
+    .media-img-wrap { position: relative; overflow: hidden; }
+    .media-img-wrap img {
+      width: 100%; height: 240px;
+      object-fit: cover; transition: transform 0.5s;
+    }
+    .media-card:hover .media-img-wrap img { transform: scale(1.04); }
+
+    .media-body { padding: 28px 28px 32px; background: var(--ivory); flex-grow: 1; }
+
+    .media-tag {
+      font-size: 11px; font-weight: 500;
+      color: var(--gold); letter-spacing: 0.12em;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+
+    .media-title {
+      font-size: 17px; font-weight: 700;
+      color: var(--charcoal); line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .media-sub {
+      font-size: 14px; color: var(--muted);
+      line-height: 1.7; font-weight: 300;
+    }
+
+    /* ─── S10: CONTACT ─── */
+    #contact {
+      background: var(--beige);
+      padding: 120px 0;
+    }
+
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 80px; align-items: start;
+    }
+
+    .contact-info { padding-top: 8px; }
+
+    .contact-tagline {
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 900; letter-spacing: -0.025em;
+      line-height: 1.2; color: var(--charcoal);
+      margin-bottom: 24px;
+    }
+    .contact-tagline em { font-style: normal; color: var(--green); }
+
+    .contact-desc {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.9; font-weight: 300; margin-bottom: 48px;
+    }
+
+    .contact-types { display: flex; flex-direction: column; gap: 12px; }
+
+    .contact-type {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 15px; color: var(--charcoal); font-weight: 400;
+    }
+    .contact-type-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    .contact-form {
+      background: var(--white); border-radius: 8px;
+      padding: 52px 48px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    .form-group { margin-bottom: 24px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 500;
+      color: var(--charcoal); letter-spacing: 0.06em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--ivory);
+      border: 1.5px solid var(--border);
+      border-radius: 4px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 15px; font-weight: 300;
+      color: var(--charcoal);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+
+    .form-submit {
+      width: 100%; padding: 16px;
+      background: var(--green); color: var(--ivory);
+      border: none; border-radius: 4px;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 16px; font-weight: 500; letter-spacing: 0.04em;
+      cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--green-mid); transform: translateY(-2px); }
+
+    .form-disclaimer {
+      margin-top: 20px;
+      font-size: 12px; color: var(--muted);
+      line-height: 1.7; text-align: center;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--charcoal);
+      padding: 64px 64px 48px;
+    }
+
+    .footer-top {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 60px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 40px;
+    }
+
+    .footer-brand { display: flex; flex-direction: column; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--ivory); margin-bottom: 12px;
+    }
+    .footer-tagline {
+      font-size: 14px; color: rgba(248,245,239,0.45);
+      line-height: 1.75; font-weight: 300;
+      max-width: 260px;
+    }
+
+    .footer-col-title {
+      font-size: 11px; font-weight: 600;
+      color: var(--gold); letter-spacing: 0.14em;
+      text-transform: uppercase; margin-bottom: 20px;
+    }
+    .footer-links-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links-list a {
+      font-size: 14px; color: rgba(248,245,239,0.55);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links-list a:hover { color: var(--ivory); }
+
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 40px;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px; color: rgba(248,245,239,0.35);
+      line-height: 1.75; max-width: 640px;
+    }
+
+    .footer-copy {
+      font-size: 12px; color: rgba(248,245,239,0.3);
+      white-space: nowrap;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      nav { padding: 20px 40px; }
+      nav.scrolled { padding: 14px 40px; }
+      .container { padding: 0 40px; }
+
+      #hero { padding: 0 40px; grid-template-columns: 1fr 1fr; }
+      .hero-left { padding-right: 40px; }
+
+      .about-grid { gap: 48px; }
+      .contact-grid { gap: 48px; }
+      .code-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── SYSTEM SECTION NOTICE (dark bg variant) ─── */
+    .code-notice-wrap { margin-top: 48px; }
+    .code-notice {
+      background: rgba(255,255,255,0.07);
+      border-left-color: var(--sage);
+      border-radius: 8px;
+      padding: 24px 32px;
+    }
+    .code-notice p { color: rgba(248,245,239,0.55); }
+    .code-notice strong { color: rgba(248,245,239,0.8); font-weight: 500; }
+
+    /* VAIOH sub-text with no bottom margin */
+    .section-sub-flush { margin-bottom: 0; }
+
+    @media (max-width: 768px) {
+      nav { padding: 18px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      .container { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-actions .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      #hero {
+        min-height: 100vh;
+      }
+      .hero-left { padding: 100px 24px 80px; }
+      .hero-right { display: none; }
+      .hero-headline { font-size: 36px; }
+
+      #why { padding: 80px 0; }
+      .why-grid { grid-template-columns: 1fr; }
+
+      #about, #programs, #digital, #research, #media, #vaioh, #system { padding: 80px 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img { height: 380px; }
+      .about-img-frame { display: none; }
+
+      .code-grid { grid-template-columns: repeat(2, 1fr); }
+      .vaioh-intro { grid-template-columns: 1fr; gap: 40px; }
+      .vaioh-pillars { grid-template-columns: 1fr; }
+
+      .programs-grid { grid-template-columns: 1fr; }
+      .digital-grid { grid-template-columns: 1fr; }
+      .research-grid { grid-template-columns: 1fr; }
+      .media-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+      .contact-form { padding: 36px 28px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      footer { padding: 48px 24px 40px; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .footer-bottom { flex-direction: column; gap: 16px; }
+
+      #contact { padding: 80px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">5CODE <sub>by Andrew Kim</sub></a>
+  <ul class="nav-links">
+    <li><a href="#why">5CODE란</a></li>
+    <li><a href="#about">Andrew Kim</a></li>
+    <li><a href="#system">체질 시스템</a></li>
+    <li><a href="#programs">프로그램</a></li>
+    <li><a href="#media">미디어</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button type="button" class="nav-cta" onclick="scrollTo('contact')">문의하기</button>
+    <button type="button" class="hamburger" id="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#why" class="mobile-link">5CODE란</a>
+  <a href="#about" class="mobile-link">Andrew Kim</a>
+  <a href="#system" class="mobile-link">체질 시스템</a>
+  <a href="#vaioh" class="mobile-link">VAIOH 방법론</a>
+  <a href="#programs" class="mobile-link">프로그램</a>
+  <a href="#media" class="mobile-link">미디어</a>
+  <a href="#contact" class="mobile-link mobile-cta">문의하기</a>
+</div>
+
+<!-- ── S1: HERO ── -->
+<section id="hero">
+  <!-- 스크롤 드리븐 영상 배경 -->
+  <div class="hero-video-bg">
+    <video id="heroVideo" src="images/360_2.mp4" muted webkit-playsinline preload="auto"></video>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-video-overlay-bottom"></div>
+  </div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Wellness · Self-care · 5CODE</span>
+    </div>
+    <h1 class="hero-headline reveal reveal-delay-1">
+      내 몸에 맞는<br />건강이<br /><em>진짜 건강입니다.</em>
+    </h1>
+    <p class="hero-brand reveal reveal-delay-2">5CODE Wellness Platform</p>
+    <p class="hero-desc reveal reveal-delay-3">
+      체질·체력·생활습관을 기반으로 설계하는<br />
+      새로운 웰니스 자기관리 플랫폼, 5CODE.<br />
+      개인에게 맞는 운동, 식사, 라이프스타일을 제안합니다.
+    </p>
+    <div class="hero-actions reveal reveal-delay-4">
+      <a href="#system" class="btn btn-primary">5CODE 알아보기</a>
+      <a href="#contact" class="btn btn-outline-light">강연·제휴 문의</a>
+    </div>
+  </div>
+
+  <!-- 스크롤 진행 바 -->
+  <div class="hero-scroll-progress">
+    <div class="hero-scroll-progress-bar" id="heroProgressBar"></div>
+  </div>
+</section>
+
+<!-- ── S2: WHY 5CODE ── -->
+<section id="why">
+  <div class="container">
+    <div class="reveal"><span class="section-label">왜 5CODE인가</span></div>
+    <h2 class="section-title reveal">왜 사람마다 다른<br />건강관리가 필요한가</h2>
+    <p class="section-sub reveal">
+      같은 방법이 모두에게 맞을 수 없습니다.<br />
+      체질과 생활습관이 다르면, 관리법도 달라져야 합니다.
+    </p>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-number">01</div>
+        <h3 class="why-title">체질이 다르면<br />관리법도 달라집니다</h3>
+        <p class="why-body">
+          동일한 음식과 운동이 누군가에게는 이상적이지만, 다른 누군가에게는 맞지 않을 수 있습니다. 5CODE는 체질별 생활습관 가이드를 통해 나에게 맞는 방식을 찾도록 돕습니다.
+        </p>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-number">02</div>
+        <h3 class="why-title">운동도 나에게<br />맞아야 합니다</h3>
+        <p class="why-body">
+          체질과 체력 수준을 고려하지 않은 운동은 오히려 부담이 될 수 있습니다. 개인에게 맞는 운동 유형과 강도를 파악하는 것이 지속가능한 웰니스의 시작입니다.
+        </p>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-number">03</div>
+        <h3 class="why-title">생활습관이 건강의<br />방향을 바꿉니다</h3>
+        <p class="why-body">
+          수면, 식사, 스트레스, 활동량 등 일상의 습관들이 쌓여 건강의 방향을 결정합니다. 5CODE는 생활습관 개선을 통한 자기관리 가이드를 제공합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S3: ABOUT ANDREW KIM ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <div class="about-img-frame"></div>
+        <img src="images/jungmyung1.png" alt="김정명 Andrew Kim 웰니스 컨설턴트 포트레이트" class="about-img" />
+      </div>
+      <div class="about-content reveal reveal-delay-1">
+        <span class="section-label">About</span>
+        <h2 class="about-name">김정명</h2>
+        <p class="about-name-en">Andrew Kim</p>
+        <p class="about-bio">
+          30년간 일본·한국 헬스케어 현장에서 체질 기반 자기관리 체계를 연구하고 사업화해온 웰니스 컨설턴트입니다. 전통 동양의학의 지혜를 현대적 웰니스 언어로 재해석하여 5CODE와 VAIOH 방법론을 개발했습니다.
+          <br /><br />
+          의료 행위가 아닌 생활습관·체질 기반의 자기관리 콘텐츠를 개발하고 교육하며, NPO Smart Healthcare를 통해 한국과 일본, 그리고 글로벌 웰니스 네트워크를 연결하고 있습니다.
+        </p>
+        <div class="about-tags">
+          <span class="about-tag">체질 기반 웰니스 연구</span>
+          <span class="about-tag">라이프스타일 교육</span>
+          <span class="about-tag">NPO Smart Healthcare</span>
+          <span class="about-tag">한·일 헬스케어 컨설팅</span>
+          <span class="about-tag">5CODE / VAIOH 개발자</span>
+        </div>
+        <div class="about-career">
+          <div class="about-career-item">
+            <span class="about-career-year">현재</span>
+            <span class="about-career-desc">NPO Smart Healthcare 회장 · 5CODE/VAIOH 체계 총괄</span>
+          </div>
+          <div class="about-career-item">
+            <span class="about-career-year">2020</span>
+            <span class="about-career-desc">PFT5 · PFA5 디지털 웰니스 플랫폼 공개</span>
+          </div>
+          <div class="about-career-item">
+            <span class="about-career-year">2010s</span>
+            <span class="about-career-desc">한·일 헬스케어 현장 30년 경력 체질 연구 · 콘텐츠 개발</span>
+          </div>
+          <div class="about-career-item">
+            <span class="about-career-year">기반</span>
+            <span class="about-career-desc">동양의학 · 현대 생활의학(PLM) · WHO 자기관리 가이드라인</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S4: 5CODE SYSTEM ── -->
+<section id="system">
+  <div class="container">
+    <div class="reveal"><span class="section-label">5CODE System</span></div>
+    <h2 class="section-title reveal">다섯 가지 체질 유형</h2>
+    <p class="section-sub reveal">
+      5CODE는 체질·체력·생활습관을 기반으로 개인 유형을 분류하는 웰니스 자기관리 참고 체계입니다. 각 유형별 운동·식사·라이프스타일 가이드를 통해 나에게 맞는 자기관리를 시작할 수 있습니다.
+    </p>
+    <div class="code-grid">
+      <div class="code-card reveal">
+        <div class="code-letter">H</div>
+        <div class="code-name">Harbor형</div>
+        <div class="code-divider"></div>
+        <div class="code-type">균형·에너지 보존형</div>
+        <div class="code-desc">안정된 루틴과 충분한 회복을 통해 균형 있는 생활관리를 추구하는 체질 유형</div>
+      </div>
+      <div class="code-card reveal reveal-delay-1">
+        <div class="code-letter">I</div>
+        <div class="code-name">Innate형</div>
+        <div class="code-divider"></div>
+        <div class="code-type">활동·근골격 중심형</div>
+        <div class="code-desc">활발한 신체활동과 근골격 관리를 중심으로 한 생활관리가 잘 맞는 체질 유형</div>
+      </div>
+      <div class="code-card reveal reveal-delay-2">
+        <div class="code-letter">Y</div>
+        <div class="code-name">Yang형</div>
+        <div class="code-divider"></div>
+        <div class="code-type">에너지·순환 활성형</div>
+        <div class="code-desc">에너지 순환과 활력 관리를 중심으로 생활습관 개선 효과가 두드러지는 체질 유형</div>
+      </div>
+      <div class="code-card reveal reveal-delay-3">
+        <div class="code-letter">A</div>
+        <div class="code-name">Apex형</div>
+        <div class="code-divider"></div>
+        <div class="code-type">심뇌·조화 관리형</div>
+        <div class="code-desc">균형 잡힌 생활 리듬과 심리적 안정이 웰니스 관리에 핵심이 되는 체질 유형</div>
+      </div>
+      <div class="code-card reveal reveal-delay-4">
+        <div class="code-letter">O</div>
+        <div class="code-name">Origin형</div>
+        <div class="code-divider"></div>
+        <div class="code-type">소화·기초 자연형</div>
+        <div class="code-desc">소화기 중심의 기초 건강 관리와 자연스러운 생활 리듬이 잘 맞는 체질 유형</div>
+      </div>
+    </div>
+    <div class="code-notice-wrap reveal">
+      <div class="vaioh-notice code-notice">
+        <p>체질 분류는 자기관리 가이드를 위한 <strong>참고 도구</strong>입니다. 의학적 진단을 대체하지 않으며, 의료진 상담과 병행하여 활용하시기 바랍니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S5: VAIOH METHOD ── -->
+<section id="vaioh">
+  <div class="container">
+    <div class="vaioh-intro">
+      <div>
+        <div class="reveal"><span class="section-label">VAIOH Method</span></div>
+        <h2 class="section-title reveal">체형과 균형을<br />스스로 인식하는<br />자가 평가 방법론</h2>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <p class="section-sub section-sub-flush">
+          VAIOH는 등·체형·균형·자기 인식을 중심으로 나의 신체 상태를 스스로 파악하는 자가 인식 도구입니다. 실제 의료 진단이 아닌, 생활습관 관리의 방향을 잡기 위한 체질 분류 참고 체계입니다. 의료진 상담과 병행하여 활용하시기를 권장합니다.
+        </p>
+      </div>
+    </div>
+    <div class="vaioh-pillars">
+      <div class="vaioh-card reveal">
+        <div class="vaioh-icon">🪴</div>
+        <h3 class="vaioh-card-title">등 · 척추 자가 인식</h3>
+        <p class="vaioh-card-body">등과 척추의 긴장, 피로, 자세 습관을 스스로 인식하는 첫 번째 단계. 일상 속 자세 패턴이 생활관리의 단서가 됩니다.</p>
+      </div>
+      <div class="vaioh-card reveal reveal-delay-1">
+        <div class="vaioh-icon">⚖️</div>
+        <h3 class="vaioh-card-title">체형 균형 자기 분류</h3>
+        <p class="vaioh-card-body">나의 체형적 특성과 신체 균형 상태를 자가 분류하는 단계. 개인 체질 분류 참고를 통해 맞춤 관리 방향을 설정합니다.</p>
+      </div>
+      <div class="vaioh-card reveal reveal-delay-2">
+        <div class="vaioh-icon">🌿</div>
+        <h3 class="vaioh-card-title">생활습관 자가 평가</h3>
+        <p class="vaioh-card-body">수면, 식사, 활동량, 스트레스 등 현재 생활습관을 객관적으로 점검하는 단계. 자기관리 가이드의 출발점입니다.</p>
+      </div>
+      <div class="vaioh-card reveal reveal-delay-3">
+        <div class="vaioh-icon">🎯</div>
+        <h3 class="vaioh-card-title">개인 맞춤 관리 설계</h3>
+        <p class="vaioh-card-body">체질·체형·생활습관 평가를 바탕으로 개인에게 맞는 운동·식사·라이프스타일을 제안하는 단계. 의료진 상담과 병행을 권장합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S6: PROGRAMS ── -->
+<section id="programs">
+  <div class="container">
+    <div class="reveal"><span class="section-label">Programs</span></div>
+    <h2 class="section-title reveal">내 체질에 맞는<br />웰니스 프로그램</h2>
+    <p class="section-sub reveal">
+      강연부터 기업 교육까지, 5CODE 웰니스 체계를 다양한 방식으로 경험할 수 있습니다.
+    </p>
+    <div class="programs-grid">
+      <div class="program-card reveal">
+        <div class="program-num">01</div>
+        <span class="program-tag">Lecture</span>
+        <h3 class="program-title">5CODE 입문 강연</h3>
+        <p class="program-body">체질·체력·생활습관 기반 웰니스의 핵심을 소개하는 입문 강연. 왜 사람마다 다른 관리가 필요한지, 어디서부터 시작해야 하는지를 이야기합니다.</p>
+        <a href="#contact" class="program-link">강연 문의하기</a>
+      </div>
+      <div class="program-card reveal reveal-delay-1">
+        <div class="program-num">02</div>
+        <span class="program-tag">Course</span>
+        <h3 class="program-title">4주 라이프 디자인 코스</h3>
+        <p class="program-body">나의 체질 유형을 파악하고, 4주 동안 생활습관 개선을 직접 설계하고 실천하는 자기관리 집중 코스. 개인에게 맞는 루틴 구축을 목표로 합니다.</p>
+        <a href="#contact" class="program-link">코스 문의하기</a>
+      </div>
+      <div class="program-card reveal reveal-delay-2">
+        <div class="program-num">03</div>
+        <span class="program-tag">Content</span>
+        <h3 class="program-title">체질별 운동·댄스 콘텐츠</h3>
+        <p class="program-body">5CODE 체질 유형별로 설계된 움직임 콘텐츠. 나에게 맞는 운동 강도와 유형을 찾고, 즐겁게 지속할 수 있는 신체 활동 가이드를 제공합니다.</p>
+        <a href="#contact" class="program-link">콘텐츠 문의하기</a>
+      </div>
+      <div class="program-card reveal reveal-delay-3">
+        <div class="program-num">04</div>
+        <span class="program-tag">B2B</span>
+        <h3 class="program-title">기업·단체 웰니스 교육</h3>
+        <p class="program-body">임직원 건강증진, 팀 웰니스 문화 구축을 위한 기업 맞춤 교육 프로그램. 생활습관 관리와 체질별 자기관리 가이드를 조직 단위로 적용합니다.</p>
+        <a href="#contact" class="program-link">기업 교육 문의</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S7: DIGITAL WELLNESS VISION ── -->
+<section id="digital">
+  <div class="container">
+    <div class="reveal"><span class="section-label">Digital Wellness</span></div>
+    <h2 class="section-title reveal">디지털로 확장하는<br />웰니스 자기관리</h2>
+    <p class="section-sub reveal">
+      5CODE 체질 기반 웰니스 관리를 디지털 환경에서 일상적으로 실천할 수 있도록 설계된 플랫폼 비전입니다.
+    </p>
+    <div class="digital-grid">
+      <div class="digital-card reveal">
+        <div class="digital-badge">PFT<sub>5</sub></div>
+        <h3 class="digital-title">Personal Fitness Track 5</h3>
+        <p class="digital-body">5CODE 체질 유형별 맞춤 체력 측정 및 생활관리 트랙. 개인의 체질과 체력 수준에 따른 운동·섭생·라이프스타일 데이터를 기반으로 최적화된 건강관리 보조 경로를 제시합니다.</p>
+        <div class="digital-features">
+          <span class="digital-feature">체질별 맞춤 체력 측정 가이드</span>
+          <span class="digital-feature">생활습관 데이터 기록 및 분석</span>
+          <span class="digital-feature">운동·식사·라이프스타일 제안</span>
+        </div>
+      </div>
+      <div class="digital-card reveal reveal-delay-1">
+        <div class="digital-badge">PFA<sub>5</sub></div>
+        <h3 class="digital-title">Personal Fitness Application 5</h3>
+        <p class="digital-body">5CODE 모바일 웰니스 관리 앱. WHO 자기관리(Self-care) 가이드라인에 기반한 개인 맞춤형 생활습관 플랫폼으로 나만의 웰니스 여정을 일상에서 지속적으로 지원합니다.</p>
+        <div class="digital-features">
+          <span class="digital-feature">개인 체질 유형별 대시보드</span>
+          <span class="digital-feature">일상 생활습관 모니터링 및 가이드</span>
+          <span class="digital-feature">웰니스 목표 설정 및 자기관리 보조</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S8: RESEARCH & SAFETY ── -->
+<section id="research">
+  <div class="container">
+    <div class="reveal"><span class="section-label">신뢰 · 안전</span></div>
+    <h2 class="section-title reveal">책임 있는<br />웰니스 자기관리</h2>
+    <p class="section-sub reveal">
+      5CODE는 WHO 자기관리 가이드라인 및 생활습관 관리 원칙과 맥락을 함께 합니다. 모든 콘텐츠는 건강관리 보조를 위한 자기관리 가이드이며, 의료 행위를 대체하지 않습니다.
+    </p>
+    <div class="research-grid">
+      <div class="research-card reveal">
+        <div class="research-icon">🌿</div>
+        <h3 class="research-title">WHO 자기관리 원칙 기반</h3>
+        <p class="research-body">세계보건기구(WHO)의 자기관리(Self-care) 가이드라인과 신체활동 권장 방향에 부합하는 생활습관 개선 콘텐츠를 제공합니다.</p>
+      </div>
+      <div class="research-card reveal reveal-delay-1">
+        <div class="research-icon">📋</div>
+        <h3 class="research-title">생활습관 개선 중심</h3>
+        <p class="research-body">운동, 수면, 식사, 스트레스 관리 등 일상 생활습관 개선을 핵심으로 합니다. 체질 분류는 자기관리 방향 참고를 위한 도구로 활용됩니다.</p>
+      </div>
+      <div class="research-card reveal reveal-delay-2">
+        <div class="research-icon">🤝</div>
+        <h3 class="research-title">의료진 상담과 병행</h3>
+        <p class="research-body">건강 상태에 따라 의료진 상담을 먼저 받으시기 바랍니다. 5CODE는 의료 진단·치료의 보완이 아닌, 일상 자기관리 가이드를 목적으로 합니다.</p>
+      </div>
+    </div>
+    <div class="disclaimer-box reveal">
+      <p><strong>안전 고지 —</strong> 본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요. 모든 신체 활동은 개인의 건강 상태에 맞게 조절하시기 바랍니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── S9: MEDIA / LECTURE ── -->
+<section id="media">
+  <div class="container">
+    <div class="reveal"><span class="section-label">Media · Lecture</span></div>
+    <h2 class="section-title reveal">콘텐츠 · 강연 · 미디어</h2>
+    <p class="section-sub reveal">
+      유튜브, 강연, 세미나, 교육 콘텐츠로 확장되는 5CODE 웰니스 브랜드 미디어.
+    </p>
+    <div class="media-grid">
+      <div class="media-card reveal">
+        <div class="media-img-wrap">
+          <img src="images/digital-wellness-dashboard.png" alt="5CODE 디지털 웰니스 대시보드" />
+        </div>
+        <div class="media-body">
+          <div class="media-tag">강연 · 세미나</div>
+          <h3 class="media-title">5CODE 웰니스 강연</h3>
+          <p class="media-sub">체질 기반 자기관리 웰니스를 주제로 한 프리미엄 강연 및 세미나 활동</p>
+        </div>
+      </div>
+      <div class="media-card reveal reveal-delay-1">
+        <div class="media-img-wrap">
+          <img src="images/kim02.jpeg" alt="5CODE 웰니스 콘텐츠 — 자연과 건강" />
+        </div>
+        <div class="media-body">
+          <div class="media-tag">인터뷰 · 미디어</div>
+          <h3 class="media-title">WHIZNOMICS 인터뷰</h3>
+          <p class="media-sub">5CODE 체질 웰니스 비전과 K-Health 미래에 대해 이야기하다</p>
+        </div>
+      </div>
+      <div class="media-card reveal reveal-delay-2">
+        <div class="media-img-wrap">
+          <img src="images/6-2.png" alt="글로벌 웰니스 네트워크 — NPO Smart Healthcare" />
+        </div>
+        <div class="media-body">
+          <div class="media-tag">글로벌 · 네트워크</div>
+          <h3 class="media-title">글로벌 웰니스 네트워크</h3>
+          <p class="media-sub">한국·일본을 잇는 NPO Smart Healthcare의 국제 웰니스 플랫폼 확장 스토리</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── S10: CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <span class="section-label">Contact</span>
+        <h2 class="contact-tagline">함께 만드는<br /><em>웰니스의 미래</em></h2>
+        <p class="contact-desc">
+          강연 문의, 제휴 협력, 프로그램 참가, 기업 교육 등 다양한 형태의 협업을 환영합니다. 아래 양식을 통해 문의해 주시면 빠르게 답변드리겠습니다.
+        </p>
+        <div class="contact-types">
+          <div class="contact-type"><div class="contact-type-dot"></div>강연 문의</div>
+          <div class="contact-type"><div class="contact-type-dot"></div>제휴 문의</div>
+          <div class="contact-type"><div class="contact-type-dot"></div>프로그램 문의</div>
+          <div class="contact-type"><div class="contact-type-dot"></div>기업 교육 문의</div>
+        </div>
+      </div>
+      <div class="contact-form reveal reveal-delay-1">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">이름</label>
+              <input type="text" id="name" name="name" placeholder="홍길동" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">연락처</label>
+              <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">이메일</label>
+            <input type="email" id="email" name="email" placeholder="example@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="inquiry">문의 유형</label>
+            <select id="inquiry" name="inquiry" required>
+              <option value="" disabled selected>문의 유형을 선택해주세요</option>
+              <option value="lecture">강연 문의</option>
+              <option value="partnership">제휴 문의</option>
+              <option value="program">프로그램 문의</option>
+              <option value="corporate">기업 교육 문의</option>
+              <option value="other">기타 문의</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">문의 내용</label>
+            <textarea id="message" name="message" placeholder="문의하실 내용을 자유롭게 작성해 주세요." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">문의 보내기</button>
+          <p class="form-disclaimer">
+            본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다.<br />
+            질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">5CODE</div>
+      <p class="footer-tagline">체질·체력·생활습관을 기반으로 설계하는 웰니스 자기관리 플랫폼</p>
+    </div>
+    <div>
+      <div class="footer-col-title">페이지</div>
+      <ul class="footer-links-list">
+        <li><a href="#why">왜 5CODE인가</a></li>
+        <li><a href="#about">Andrew Kim</a></li>
+        <li><a href="#system">체질 시스템</a></li>
+        <li><a href="#vaioh">VAIOH 방법론</a></li>
+        <li><a href="#programs">프로그램</a></li>
+        <li><a href="#media">미디어</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">문의</div>
+      <ul class="footer-links-list">
+        <li><a href="#contact">강연 문의</a></li>
+        <li><a href="#contact">제휴 문의</a></li>
+        <li><a href="#contact">기업 교육</a></li>
+        <li><a href="#contact">프로그램 참가</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-disclaimer">
+      본 콘텐츠는 의학적 진단·치료를 대체하지 않습니다. 체질 분류 및 웰니스 가이드는 생활습관 관리 보조를 위한 참고 정보이며, 질병이 있거나 약물을 복용 중인 경우 반드시 의료진과 상담하세요.
+    </p>
+    <p class="footer-copy">© 2026 NPO Smart Healthcare · 5CODE</p>
+  </div>
+</footer>
+
+<script>
+  /* ─ Nav scroll behavior ─ */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* ─ Scroll reveal ─ */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ─ Mobile menu ─ */
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* ─ Smooth section scroll helper ─ */
+  function scrollTo(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  /* ─ 스크롤 드리븐 영상 재생 ─ */
+  (function () {
+    const video = document.getElementById('heroVideo');
+    const progressBar = document.getElementById('heroProgressBar');
+    const heroSection = document.getElementById('hero');
+    if (!video || !heroSection) return;
+
+    let videoDuration = 0;
+
+    // 영상 메타데이터 로드 후 duration 저장
+    video.playsInline = true; // JS로 설정 (Firefox HTML 속성 미지원 우회)
+    video.addEventListener('loadedmetadata', () => {
+      videoDuration = video.duration;
+      // 첫 프레임 고정
+      video.currentTime = 0;
+    });
+
+    // 스크롤 이벤트: 히어로 섹션 내 스크롤 비율에 따라 currentTime 제어
+    function onScroll() {
+      if (!videoDuration) return;
+
+      const heroH = heroSection.offsetHeight;
+      const scrollY = window.scrollY;
+      // 히어로 섹션 높이의 2배 거리를 스크롤할 때 영상 전체 재생
+      const scrollRange = heroH * 1.5;
+      const progress = Math.min(Math.max(scrollY / scrollRange, 0), 1);
+
+      video.currentTime = progress * videoDuration;
+
+      // 진행 바 업데이트
+      if (progressBar) progressBar.style.width = (progress * 100) + '%';
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // 영상 로드 전 스크롤된 경우를 위해 loadedmetadata 이후 한 번 실행
+    video.addEventListener('loadedmetadata', onScroll);
+  })();
+
+  /* ─ Contact form ─ */
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '전송 중...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = '문의가 접수되었습니다 ✓';
+      btn.style.background = 'var(--sage)';
+      btn.style.color = 'var(--charcoal)';
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = '문의 보내기';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.disabled = false;
+      }, 4000);
+    }, 1000);
+  }
+</script>
+</body>
+</html>
